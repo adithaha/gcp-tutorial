@@ -19,13 +19,7 @@ gcloud projects add-iam-policy-binding ${PROJECT} --member=user:[USER_EMAIL] --r
 ## enable policy
 Allow all for org policy below
 ```
-compute.vmCanIpForward
-compute.vmExternalIpAccess
-```
-Disable enforce requireShieldedVm and requireOsLogin
-```
-gcloud resource-manager org-policies disable-enforce compute.requireShieldedVm --project=${PROJECT}
-gcloud resource-manager org-policies disable-enforce compute.requireOsLogin --project=${PROJECT}
+gcloud org-policies set-policy iam/allowedPolicyMemberDomains.json
 ```
 # Create VPC and enable IAP
 Login with non-admin role.
