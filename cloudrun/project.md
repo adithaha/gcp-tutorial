@@ -19,6 +19,7 @@ gcloud projects add-iam-policy-binding ${PROJECT} --member=user:[USER_EMAIL] --r
 ## enable policy
 Allow all for org policy below
 ```
+sed -i 's/$PROJECT/${PROJECT}/g' input.txt
 gcloud org-policies set-policy iam/allowedPolicyMemberDomains.json
 ```
 # Create VPC and enable IAP
