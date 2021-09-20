@@ -1,0 +1,1 @@
+{"name":"projects/$PROJECT/policies/iam.allowedPolicyMemberDomains","spec":{"rules": [{"allowAll":true}]}}
