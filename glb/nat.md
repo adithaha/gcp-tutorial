@@ -1,4 +1,4 @@
-# create nat
+# create NAT
 
 ## Set project
 ```
