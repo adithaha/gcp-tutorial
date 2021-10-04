@@ -22,3 +22,6 @@ Delete project
 ```
 gcloud projects delete ${PROJECT}
 ```
+
+gcloud run deploy hello-app --image=gcr.io/google-samples/hello-app:1.0 --project=${PROJECT} --region=us-central1 --allow-unauthenticated
+
