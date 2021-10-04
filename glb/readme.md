@@ -1,6 +1,6 @@
 # Content
-1. [Create Project](https://github.com/adithaha/gcp-tutorial/blob/main/gke/project.md)
-2. [Setup GKE cluster with Hello App](https://github.com/adithaha/gcp-tutorial/blob/main/gke/simple.md)
-3. [Internal load balancer](https://github.com/adithaha/gcp-tutorial/blob/main/gke/internal-lb.md)
-4. [Ingress](https://github.com/adithaha/gcp-tutorial/blob/main/gke/ingress.md)
-5. [Delete Project](https://github.com/adithaha/gcp-tutorial/blob/main/gke/delete.md)
+1. [Create Project](https://github.com/adithaha/gcp-tutorial/blob/main/glb/project.md)
+2. [Setup Cloud NAT](https://github.com/adithaha/gcp-tutorial/blob/main/glb/nat.md)
+3. [Create Managed Instance Group](https://github.com/adithaha/gcp-tutorial/blob/main/glb/mig.md)
+4. [Global Load Balancer](https://github.com/adithaha/gcp-tutorial/blob/main/glb/glb.md)
+5. [Delete Project](https://github.com/adithaha/gcp-tutorial/blob/main/glb/delete.md)
