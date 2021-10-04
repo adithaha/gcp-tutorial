@@ -14,7 +14,7 @@ gcloud compute firewall-rules create fw-allow-health-check \
 
 create health check
 ```
-gcloud compute health-checks create http http-basic-check --port 8080
+gcloud compute health-checks create http http-basic-check --port 8080 --check-interval 10s --unhealthy-threshold 3
 ```
 
 ## create template
@@ -28,7 +28,7 @@ gcloud compute instance-templates create-with-container mig-lb-template --machin
 Create instance group based on previous template
 ```
 gcloud compute instance-groups managed create mig-lb-instance-group --template=mig-lb-template \
-    --size=2 --region=asia-southeast2
+    --size=2 --region=asia-southeast2 --health-check=http-basic-check --initial-delay=300
 ```
 
 create named ports for instance group
