@@ -1,5 +1,11 @@
 # Delete all resources
 
+# Scale down to zero
+```
+gcloud compute instance-groups managed resize mig-lb-instance-group --size=
+```
+
+# Delete all resources
 ```
 gcloud compute forwarding-rules delete mig-lb-content-rule --global
 gcloud compute target-http-proxies delete mig-lb-proxy
