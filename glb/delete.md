@@ -2,7 +2,7 @@
 
 # Scale down to zero
 ```
-gcloud compute instance-groups managed resize mig-lb-instance-group --size=
+gcloud compute instance-groups managed resize mig-lb-instance-group --size=0
 ```
 
 # Delete all resources
