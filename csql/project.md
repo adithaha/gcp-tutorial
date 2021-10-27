@@ -72,3 +72,16 @@ gcloud compute firewall-rules create allow-ssh-ingress-from-iap \
 ```
 gcloud compute instances create pgdb-client --project=${PROJECT} --zone=${ZONE} --machine-type=e2-small --subnet=${REGION} --boot-disk-size=10GB --boot-disk-type=pd-balanced --no-address --tags=http-server
 ```
+```
+gcloud sql instances create dbpg \
+--database-version=POSTGRES_12 \
+--cpu=1 \
+--memory=3840MB \
+--region=${REGION} \
+--no-assign-ip \
+--network=DEVNET \
+--storage-type=SSD \
+--storage-size=10GB \
+--gce-zone=GCE_ZONE \
+--zone=ZONE
+```
