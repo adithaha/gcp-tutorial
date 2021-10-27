@@ -46,12 +46,13 @@ Login with non-admin role.
 ```
 PROJECT=[PROJECT_ID]
 REGION=us-west1
+ZONE=us-west1-a
 gcloud config set project ${PROJECT}
 ```
 ## create vpc
 ```
 gcloud compute networks create devnet --project=${PROJECT} --subnet-mode=custom --mtu=1460 --bgp-routing-mode=regional
-gcloud compute networks subnets create us-central1 --project=${PROJECT} --range=10.148.0.0/20 --network=devnet --region=${REGION}
+gcloud compute networks subnets create ${REGION} --project=${PROJECT} --range=10.148.0.0/20 --network=devnet --region=${REGION}
 ```
 ## create firewall
 ```
@@ -66,3 +67,8 @@ gcloud compute firewall-rules create allow-ssh-ingress-from-iap \
 
 ### Go back
 [Content](https://github.com/adithaha/temp/blob/main/csql/readme.md)
+
+
+```
+gcloud compute instances create pgdb-client --project=${PROJECT} --zone=${ZONE} --machine-type=e2-small --subnet=${REGION} --boot-disk-size=10GB --boot-disk-type=pd-balanced --no-address --tags=http-server
+```
