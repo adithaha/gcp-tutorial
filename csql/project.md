@@ -48,6 +48,8 @@ PROJECT=[PROJECT_ID]
 REGION=us-west1
 ZONE=us-west1-a
 REGION2=us-central1
+ZONE2=us-central1-c
+
 
 gcloud config set project ${PROJECT}
 ```
@@ -75,6 +77,8 @@ gcloud compute firewall-rules create allow-ssh-ingress-from-iap \
 
 ```
 gcloud compute instances create pgdb-client --project=${PROJECT} --zone=${ZONE} --machine-type=e2-small --subnet=${REGION} --boot-disk-size=10GB --boot-disk-type=pd-balanced --no-address --tags=http-server
+
+gcloud compute instances create pgdb-client-separated2 --project=${PROJECT} --zone=${ZONE2} --machine-type=e2-small --subnet=${REGION2} --boot-disk-size=10GB --boot-disk-type=pd-balanced --tags=http-server
 ```
 ```
 gcloud compute addresses create google-managed-services-devnet \
@@ -102,7 +106,7 @@ gcloud sql instances create myinstance \
 --memory=7680MB \
 --region=us-central1
 
-gcloud beta sql instances create dbmysql \
+gcloud beta sql instances create dbmysql2 \
 --database-version=MYSQL_5_7 \
 --cpu=1 \
 --memory=3840MB \
@@ -111,8 +115,7 @@ gcloud beta sql instances create dbmysql \
 --network=devnet \
 --storage-type=SSD \
 --storage-size=10GB
-
-\
---gce-zone=GCE_ZONE \
---zone=ZONE
+```
+```
+gcloud compute ssh --project=${PROJECT} --zone=${ZONE} pgdb-client --tunnel-through-iap
 ```
