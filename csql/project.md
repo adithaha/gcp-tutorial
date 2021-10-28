@@ -97,8 +97,6 @@ gcloud services vpc-peerings connect \
 gcloud services vpc-peerings operations describe --name=operations/pssn.p24-284005574146-434f0348-1f6c-4a2b-947d-a5ab43f57b41
 ```
 
-
-
 ```
 gcloud sql instances create myinstance \
 --database-version=MYSQL_8_0 \
@@ -118,4 +116,9 @@ gcloud beta sql instances create dbmysql2 \
 ```
 ```
 gcloud compute ssh --project=${PROJECT} --zone=${ZONE} pgdb-client --tunnel-through-iap
+```
+```
+gcloud sql instances delete dbmysql2
+gcloud compute instances delete pgdb-client
+gcloud compute instances delete pgdb-client-separated2 --zone=${ZONE2}
 ```
