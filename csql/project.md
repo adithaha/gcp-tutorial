@@ -3,24 +3,24 @@
 Administrator will create project, assign billing account and add non-admin user as project owner.
 
 Login with admin role.
-## create project with billing account
+## Create project with billing account
 ```
 gcloud projects create --name=nugraha-csql
 ```
-Set environment parameter
+### Set environment parameter
 ```
 PROJECT=[PROJECT_ID]
 BILLING_ACCOUNT=[BILLING_ACCOUNT]
 ```
-Set billing id
+### Set billing id
 ```
 gcloud beta billing projects link ${PROJECT} --billing-account ${BILLING_ACCOUNT}
 ```
-Grant owner to non admin user
+### Grant owner to non admin user
 ```
 gcloud projects add-iam-policy-binding ${PROJECT} --member=user:[USER_EMAIL] --role=roles/owner
 ```
-## enable policy
+## Enable policy
 Allow all for org policy below
 ```
 declare -a policies=("constraints/compute.trustedImageProjects" 
