@@ -19,21 +19,34 @@ gcloud projects add-iam-policy-binding ${PROJECT} --member=user:[USER_EMAIL] --r
 ## enable policy
 Allow all for org policy below
 ```
-compute.vmCanIpForward
-compute.vmExternalIpAccess
+declare -a policies=("constraints/compute.trustedImageProjects" 
+                "constraints/compute.vmExternalIpAccess"
+                "constraints/compute.restrictSharedVpcSubnetworks"
+                "constraints/compute.restrictSharedVpcHostProjects"
+                "constraints/compute.restrictVpcPeering"
+                "constraints/compute.vmCanIpForward"
+                )
+for policy in "${policies[@]}"
+do
+cat <<EOF > new_policy.yaml
+constraint: $policy
+listPolicy:
+ allValues: ALLOW
+EOF
+gcloud resource-manager org-policies set-policy new_policy.yaml --project=${PROJECT}
+done
 ```
 Disable enforce requireShieldedVm and requireOsLogin
 ```
 gcloud resource-manager org-policies disable-enforce compute.requireShieldedVm --project=${PROJECT}
 gcloud resource-manager org-policies disable-enforce compute.requireOsLogin --project=${PROJECT}
 
-
+#error
 gcloud resource-manager org-policies disable-enforce iam.allowedPolicyMemberDomains --project=${PROJECT}
-
-
-
 gcloud org-policies describe iam.allowedPolicyMemberDomains --project=${PROJECT}
+
 gcloud services enable orgpolicy.policy.get  --project=${PROJECT}
+
 {"name":"projects/${PROJECT}/policies/iam.allowedPolicyMemberDomains","spec":{"rules": [{"allowAll":true}]}}
 
 gcloud org-policies set-policy iam.json
@@ -56,10 +69,13 @@ gcloud config set project ${PROJECT}
 ## create vpc
 ```
 gcloud compute networks create devnet --project=${PROJECT} --subnet-mode=custom --mtu=1460 --bgp-routing-mode=regional
+```
+## create subnet
+```
 gcloud compute networks subnets create ${REGION} --project=${PROJECT} --range=10.148.0.0/20 --network=devnet --region=${REGION}
 gcloud compute networks subnets create ${REGION2} --project=${PROJECT} --range=10.146.0.0/20 --network=devnet --region=${REGION2}
-
 ```
+
 ## create firewall
 ```
 gcloud compute firewall-rules create allow-ssh-ingress-from-iap \
@@ -104,7 +120,7 @@ gcloud sql instances create myinstance \
 --memory=7680MB \
 --region=us-central1
 
-gcloud beta sql instances create dbmysql2 \
+gcloud beta sql instances create dbmysql \
 --database-version=MYSQL_5_7 \
 --cpu=1 \
 --memory=3840MB \
