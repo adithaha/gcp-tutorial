@@ -34,7 +34,7 @@ gcloud resource-manager org-policies disable-enforce iam.allowedPolicyMemberDoma
 
 gcloud org-policies describe iam.allowedPolicyMemberDomains --project=${PROJECT}
 gcloud services enable orgpolicy.policy.get  --project=${PROJECT}
-{"name":"projects/gke-test-325904/policies/iam.allowedPolicyMemberDomains","spec":{"rules": [{"allowAll":true}]}}
+{"name":"projects/${PROJECT}/policies/iam.allowedPolicyMemberDomains","spec":{"rules": [{"allowAll":true}]}}
 
 gcloud org-policies set-policy iam.json
 
