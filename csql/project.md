@@ -40,21 +40,11 @@ Disable enforce requireShieldedVm and requireOsLogin
 ```
 gcloud resource-manager org-policies disable-enforce compute.requireShieldedVm --project=${PROJECT}
 gcloud resource-manager org-policies disable-enforce compute.requireOsLogin --project=${PROJECT}
-
-#error
-gcloud resource-manager org-policies disable-enforce iam.allowedPolicyMemberDomains --project=${PROJECT}
-gcloud org-policies describe iam.allowedPolicyMemberDomains --project=${PROJECT}
-
-gcloud services enable orgpolicy.policy.get  --project=${PROJECT}
-
-{"name":"projects/${PROJECT}/policies/iam.allowedPolicyMemberDomains","spec":{"rules": [{"allowAll":true}]}}
-
-gcloud org-policies set-policy iam.json
-
-
 ```
+
 # Create VPC and enable IAP
 Login with non-admin role.
+
 ## Set parameter
 ```
 PROJECT=[PROJECT_ID]
@@ -91,11 +81,8 @@ gcloud compute firewall-rules create allow-ssh-ingress-from-iap \
 [Content](https://github.com/adithaha/temp/blob/main/csql/readme.md)
 
 
-```
-gcloud compute instances create pgdb-client --project=${PROJECT} --zone=${ZONE} --machine-type=e2-small --subnet=${REGION} --boot-disk-size=10GB --boot-disk-type=pd-balanced --no-address --tags=http-server
 
-gcloud compute instances create pgdb-client-separated2 --project=${PROJECT} --zone=${ZONE2} --machine-type=e2-small --subnet=${REGION2} --boot-disk-size=10GB --boot-disk-type=pd-balanced --tags=http-server
-```
+## create virtual private access
 ```
 gcloud compute addresses create google-managed-services-devnet \
 --global \
@@ -113,13 +100,8 @@ gcloud services vpc-peerings connect \
 gcloud services vpc-peerings operations describe --name=operations/pssn.p24-284005574146-434f0348-1f6c-4a2b-947d-a5ab43f57b41
 ```
 
+## create Cloud SQL instance 
 ```
-gcloud sql instances create myinstance \
---database-version=MYSQL_8_0 \
---cpu=2 \
---memory=7680MB \
---region=us-central1
-
 gcloud beta sql instances create dbmysql \
 --database-version=MYSQL_5_7 \
 --cpu=1 \
@@ -130,11 +112,31 @@ gcloud beta sql instances create dbmysql \
 --storage-type=SSD \
 --storage-size=10GB
 ```
+
+Note Cloud SQL internal IP address
+```
+gcloud beta sql instances describe dbmysql | grep ipAddress:
+```
+
+## create client vm 
+```
+gcloud compute instances create pgdb-client --project=${PROJECT} --zone=${ZONE} --machine-type=e2-small --subnet=${REGION} --boot-disk-size=10GB --boot-disk-type=pd-balanced --tags=http-server
+```
+
+## Access Cloud SQL from VM
 ```
 gcloud compute ssh --project=${PROJECT} --zone=${ZONE} pgdb-client --tunnel-through-iap
 ```
+Inside VM
 ```
-gcloud sql instances delete dbmysql2
-gcloud compute instances delete pgdb-client
-gcloud compute instances delete pgdb-client-separated2 --zone=${ZONE2}
+sudo apt-get update
+sudo apt install telnet
+telnet <csql-internal-ip> 3306
+```
+
+## Access Cloud SQL from VM
+
+```
+gcloud sql instances delete dbmysql
+gcloud compute instances delete pgdb-client --zone=${ZONE}
 ```
