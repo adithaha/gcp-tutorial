@@ -1,20 +1,22 @@
 
 # Create Project
 Administrator will create project, assign billing account and add non-admin user as project owner.
+
 Login with admin role.
 ## create project with billing account
 ```
 gcloud projects create --name=nugraha-csql
 ```
-Note project id from previous command result
-
+Set environment parameter
 ```
 PROJECT=[PROJECT_ID]
 BILLING_ACCOUNT=[BILLING_ACCOUNT]
 ```
+Set billing id
 ```
 gcloud beta billing projects link ${PROJECT} --billing-account ${BILLING_ACCOUNT}
 ```
+Grant owner to non admin user
 ```
 gcloud projects add-iam-policy-binding ${PROJECT} --member=user:[USER_EMAIL] --role=roles/owner
 ```
@@ -79,11 +81,6 @@ gcloud compute firewall-rules create allow-ssh-ingress-from-iap \
   --network=devnet
 ```
 
-### Go back
-[Content](https://github.com/adithaha/temp/blob/main/csql/readme.md)
-
-
-
 ## create virtual private access
 ```
 gcloud compute addresses create google-managed-services-devnet \
@@ -142,3 +139,8 @@ telnet <csql-internal-ip> 3306
 gcloud sql instances delete dbmysql
 gcloud compute instances delete pgdb-client --zone=${ZONE}
 ```
+
+
+### Go back
+[Content](https://github.com/adithaha/temp/blob/main/csql/readme.md)
+
