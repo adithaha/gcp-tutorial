@@ -4,8 +4,10 @@ Administrator will create project, assign billing account and add non-admin user
 Login with admin role.
 ## create project with billing account
 ```
-gcloud projects create --name=gke-test
+gcloud projects create --name=nugraha-csql
 ```
+Note project id from previous command result
+
 ```
 PROJECT=[PROJECT_ID]
 BILLING_ACCOUNT=[BILLING_ACCOUNT]
