@@ -40,16 +40,17 @@ EOF
 gcloud resource-manager org-policies set-policy new_policy.yaml --project=${PROJECT}
 done
 ```
-Disable enforce requireShieldedVm and requireOsLogin
+### Disable enforce requireShieldedVm and requireOsLogin
 ```
 gcloud resource-manager org-policies disable-enforce compute.requireShieldedVm --project=${PROJECT}
 gcloud resource-manager org-policies disable-enforce compute.requireOsLogin --project=${PROJECT}
 ```
 
-# Create VPC and enable IAP
+# Create VPC and enable IAP with non-admin role
 Login with non-admin role.
 
-## Set parameter
+## Create VPC and Firewall
+### Set parameter
 ```
 PROJECT=[PROJECT_ID]
 REGION=us-west1
@@ -60,17 +61,17 @@ ZONE2=us-central1-c
 
 gcloud config set project ${PROJECT}
 ```
-## create vpc
+### Create vpc
 ```
 gcloud compute networks create devnet --project=${PROJECT} --subnet-mode=custom --mtu=1460 --bgp-routing-mode=regional
 ```
-## create subnet
+### Create subnet
 ```
 gcloud compute networks subnets create ${REGION} --project=${PROJECT} --range=10.148.0.0/20 --network=devnet --region=${REGION}
 gcloud compute networks subnets create ${REGION2} --project=${PROJECT} --range=10.146.0.0/20 --network=devnet --region=${REGION2}
 ```
 
-## create firewall
+### Create firewall for IAP
 ```
 gcloud compute firewall-rules create allow-ssh-ingress-from-iap \
   --direction=INGRESS \
@@ -112,7 +113,7 @@ gcloud beta sql instances create dbmysql \
 --storage-size=10GB
 ```
 
-Note Cloud SQL internal IP address
+### Note Cloud SQL internal IP address
 ```
 gcloud beta sql instances describe dbmysql | grep ipAddress:
 ```
@@ -122,19 +123,17 @@ gcloud beta sql instances describe dbmysql | grep ipAddress:
 gcloud compute instances create pgdb-client --project=${PROJECT} --zone=${ZONE} --machine-type=e2-small --subnet=${REGION} --boot-disk-size=10GB --boot-disk-type=pd-balanced --tags=http-server
 ```
 
-## Access Cloud SQL from VM
+### Access Cloud SQL from VM
 ```
 gcloud compute ssh --project=${PROJECT} --zone=${ZONE} pgdb-client --tunnel-through-iap
 ```
-Inside VM
+###  Inside VM
 ```
 sudo apt-get update
 sudo apt install telnet
 telnet <csql-internal-ip> 3306
 ```
-
-## Access Cloud SQL from VM
-
+## Delete resources
 ```
 gcloud sql instances delete dbmysql
 gcloud compute instances delete pgdb-client --zone=${ZONE}
