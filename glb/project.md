@@ -65,4 +65,4 @@ gcloud compute firewall-rules create allow-ssh-ingress-from-iap \
 ```
 
 ### Go back
-[Content](https://github.com/adithaha/gcp-tutorial/glb/blob/main/gke/readme.md)
+[Content](https://github.com/adithaha/gcp-tutorial/tree/main/glb)
