@@ -36,3 +36,6 @@ create named ports for instance group
 gcloud compute instance-groups set-named-ports mig-lb-instance-group --named-ports http:8080 \
     --region asia-southeast2
 ```
+
+### Go back
+[Content](https://github.com/adithaha/gcp-tutorial/blob/main/glb/readme.md)
