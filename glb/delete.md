@@ -14,3 +14,6 @@ gcloud compute backend-services delete mig-lb-backend --global
 gcloud compute instance-groups managed delete mig-lb-instance-group --region asia-southeast2
 gcloud compute instance-templates delete mig-lb-template
 ```
+
+### Go back
+[Content](https://github.com/adithaha/gcp-tutorial/blob/main/glb/readme.md)
