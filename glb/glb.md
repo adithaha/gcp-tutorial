@@ -34,3 +34,6 @@ gcloud compute forwarding-rules create mig-lb-content-rule \
     --target-http-proxy=mig-lb-proxy \
     --ports=80
 ```
+
+### Go back
+[Content](https://github.com/adithaha/gcp-tutorial/blob/main/glb/readme.md)
