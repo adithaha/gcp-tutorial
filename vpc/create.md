@@ -30,6 +30,7 @@ gcloud compute firewall-rules create ${VPC1}-allow-internal \
   --direction=INGRESS \
   --action=allow \
   --rules=all \
+  --priority=65534 \
   --source-ranges=10.128.0.0/9 \
   --project=${PROJECT} \
   --network=${VPC1}
@@ -41,6 +42,15 @@ gcloud compute firewall-rules create ${VPC2}-allow-ssh-ingress-from-iap \
   --action=allow \
   --rules=tcp:22 \
   --source-ranges=35.235.240.0/20 \
+  --project=${PROJECT} \
+  --network=${VPC2}
+  
+gcloud compute firewall-rules create ${VPC2}-allow-internal \
+  --direction=INGRESS \
+  --action=allow \
+  --rules=all \
+  --priority=65534 \
+  --source-ranges=10.128.0.0/9 \
   --project=${PROJECT} \
   --network=${VPC2}
 ```
