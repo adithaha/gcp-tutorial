@@ -18,7 +18,7 @@ gcloud compute networks subnets create ${VPC2}-${REGION2} --project=${PROJECT} -
 ```
 ## create firewall
 ```
-gcloud compute firewall-rules create devnet1-allow-ssh-ingress-from-iap \
+gcloud compute firewall-rules create ${VPC1}-allow-ssh-ingress-from-iap \
   --direction=INGRESS \
   --action=allow \
   --rules=tcp:22 \
@@ -28,7 +28,7 @@ gcloud compute firewall-rules create devnet1-allow-ssh-ingress-from-iap \
 ```
 
 ```
-gcloud compute firewall-rules create devnet2-allow-ssh-ingress-from-iap \
+gcloud compute firewall-rules create ${VPC2}-allow-ssh-ingress-from-iap \
   --direction=INGRESS \
   --action=allow \
   --rules=tcp:22 \
