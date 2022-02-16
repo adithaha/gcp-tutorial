@@ -1,10 +1,9 @@
 # Create VPC and enable IAP
 Login with non-admin role.
+
 ## Set parameter
-```
-PROJECT=[PROJECT_ID]
-gcloud config set project ${PROJECT}
-```
+[Parameter](https://github.com/adithaha/gcp-tutorial/blob/main/vpc/parameter.md)
+
 ## create vpc devnet1
 ```
 gcloud compute networks create devnet1 --project=${PROJECT} --subnet-mode=custom --mtu=1460 --bgp-routing-mode=regional
