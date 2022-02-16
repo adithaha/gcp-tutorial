@@ -13,8 +13,8 @@ gcloud compute networks subnets create ${VPC1}-${REGION2} --project=${PROJECT} -
 ## create vpc devnet2
 ```
 gcloud compute networks create ${VPC2} --project=${PROJECT} --subnet-mode=custom --mtu=1460 --bgp-routing-mode=regional
-gcloud compute networks subnets create ${VPC2}-${REGION1} --project=${PROJECT} --range=10.148.0.0/20 --network=${VPC2} --region=${REGION1}
-gcloud compute networks subnets create ${VPC2}-${REGION2} --project=${PROJECT} --range=10.146.0.0/20 --network=${VPC2} --region=${REGION2}
+gcloud compute networks subnets create ${VPC2}-${REGION1} --project=${PROJECT} --range=10.144.0.0/20 --network=${VPC2} --region=${REGION1}
+gcloud compute networks subnets create ${VPC2}-${REGION2} --project=${PROJECT} --range=10.142.0.0/20 --network=${VPC2} --region=${REGION2}
 ```
 ## create firewall
 ```
