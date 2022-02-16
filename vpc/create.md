@@ -8,14 +8,14 @@ gcloud config set project ${PROJECT}
 ## create vpc devnet1
 ```
 gcloud compute networks create devnet1 --project=${PROJECT} --subnet-mode=custom --mtu=1460 --bgp-routing-mode=regional
-gcloud compute networks subnets create jakarta --project=${PROJECT} --range=10.148.0.0/20 --network=devnet1 --region=asia-southeast2
-gcloud compute networks subnets create singapore --project=${PROJECT} --range=10.146.0.0/20 --network=devnet1 --region=asia-southeast1
+gcloud compute networks subnets create devnet1-jakarta --project=${PROJECT} --range=10.148.0.0/20 --network=devnet1 --region=asia-southeast2
+gcloud compute networks subnets create devnet1-singapore --project=${PROJECT} --range=10.146.0.0/20 --network=devnet1 --region=asia-southeast1
 ```
 ## create vpc devnet2
 ```
 gcloud compute networks create devnet2 --project=${PROJECT} --subnet-mode=custom --mtu=1460 --bgp-routing-mode=regional
-gcloud compute networks subnets create jakarta --project=${PROJECT} --range=10.144.0.0/20 --network=devnet2 --region=asia-southeast2
-gcloud compute networks subnets create singapore --project=${PROJECT} --range=10.142.0.0/20 --network=devnet2 --region=asia-southeast1
+gcloud compute networks subnets create devnet2-jakarta --project=${PROJECT} --range=10.144.0.0/20 --network=devnet2 --region=asia-southeast2
+gcloud compute networks subnets create devnet2-singapore --project=${PROJECT} --range=10.142.0.0/20 --network=devnet2 --region=asia-southeast1
 ```
 ## create firewall
 ```
