@@ -12,3 +12,24 @@ gcloud compute instances create ${VPC2}-vm1 --project=${PROJECT} --zone=${REGION
 gcloud compute instances create ${VPC2}-vm2 --project=${PROJECT} --zone=${REGION2}-c --machine-type=e2-small --subnet=${VPC2}-${REGION2} --boot-disk-size=10GB --boot-disk-type=pd-balanced
 
 ```
+
+## Check connection 
+```
+gcloud compute ssh --project=${PROJECT} --zone=${REGION1}-c ${VPC1}-vm1 --tunnel-through-iap
+```
+Connect to ${VPC1}-vm2 with internal ip, should ok
+```
+ping 10.146.0.2
+```
+Connect to ${VPC2}-vm1 with internal ip, should fail
+```
+ping 10.144.0.2
+```
+Connect to ${VPC2}-vm2 with internal ip, should fail
+```
+ping 10.142.0.2
+```
+
+
+### Go back
+[Content](https://github.com/adithaha/gcp-tutorial/blob/main/vpc/readme.md)
