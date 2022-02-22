@@ -12,7 +12,7 @@ gcloud container node-pools create preemptible-pool \
     --preemptible
 ```
 ```
-gcloud container node-pools create spot-pool \
+gcloud beta container node-pools create spot-pool \
     --cluster devnet1-sample-cluster \
     --num-nodes 3 \
     --zone asia-southeast2-c \
