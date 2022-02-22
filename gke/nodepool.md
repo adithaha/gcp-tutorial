@@ -4,10 +4,20 @@
 
 
 ## Nodepool
-gcloud container node-pools create preemptible-pool --zone \
+```
+gcloud container node-pools create preemptible-pool \
     --cluster devnet1-sample-cluster \
     --num-nodes 3 \
+    --zone asia-southeast2-c \
     --preemptible
+```
+```
+gcloud container node-pools create spot-pool \
+    --cluster devnet1-sample-cluster \
+    --num-nodes 3 \
+    --zone asia-southeast2-c \
+    --spot
+```
 
 ## External Ingress
 Create nodeport
