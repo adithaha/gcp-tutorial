@@ -13,7 +13,7 @@ gcloud compute instances create ${VPC2}-vm2 --project=${PROJECT} --zone=${REGION
 
 
 gcloud compute instances create ${VPC1}-pre --project=${PROJECT} --zone=${REGION1}-c --machine-type=e2-small --subnet=${VPC1}-${REGION1} --boot-disk-size=10GB --boot-disk-type=pd-balanced --preemptible
-gcloud beta compute instances create ${VPC1}-spot --project=${PROJECT} --zone=${REGION1}-c --machine-type=e2-small --subnet=${VPC1}-${REGION1} --boot-disk-size=10GB --boot-disk-type=pd-balanced --spot
+gcloud beta compute instances create ${VPC1}-spot --project=${PROJECT} --zone=${REGION1}-c --machine-type=e2-small --subnet=${VPC1}-${REGION1} --boot-disk-size=10GB --boot-disk-type=pd-balanced --provisioning-model=SPOT
 
 
 ```
