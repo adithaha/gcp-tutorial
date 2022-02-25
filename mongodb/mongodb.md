@@ -6,7 +6,7 @@ Login with non-admin role.
 
 ## create client vm 
 ```
-gcloud compute instances create ${VPC1}-mongodb-n2 --project=${PROJECT} --zone=${REGION1}-c --machine-type=n2-standard-4 --subnet=${VPC1}-${REGION1} --boot-disk-size=1000GB --boot-disk-type=pd-ssd --image-family=centos-7 --image-project=centos-cloud
+gcloud compute instances create ${VPC1}-mongodb-n2 --project=${PROJECT} --zone=${REGION1}-c --machine-type=e2-standard-16 --subnet=${VPC1}-${REGION1} --boot-disk-size=1000GB --boot-disk-type=pd-ssd --image-family=centos-7 --image-project=centos-cloud
 ```
 
 ## Install MongoDB
