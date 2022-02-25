@@ -75,6 +75,22 @@ Run YCSB - run data
 ```
 ./bin/ycsb run mongodb -s -P workloads/small > outputLoad.txt
 ```
+## Install FIO
+Open new window
+SSH into machine 
+```
+gcloud compute ssh --project=${PROJECT} --zone=${REGION1}-c ${VPC1}-mongodb-n2 --tunnel-through-iap
+```
+Install FIO 
+```
+yum install epel-release -y
+yum install fio -y
+```
+Run FIO 
+```
+fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=fiotest --filename=testfio --bs=4k --iodepth=64 --size=8G --readwrite=randrw --rwmixread=75
+```
+
 
 ### Source
 [YCSB](https://github.com/mongodb-developer/service-tests/blob/master/ycsb.md)
