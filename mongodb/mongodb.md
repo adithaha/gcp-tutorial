@@ -83,8 +83,8 @@ gcloud compute ssh --project=${PROJECT} --zone=${REGION1}-c ${VPC1}-mongodb-n2 -
 ```
 Install FIO 
 ```
-yum install epel-release -y
-yum install fio -y
+sudo yum install epel-release -y
+sudo yum install fio -y
 ```
 Run FIO 
 ```
