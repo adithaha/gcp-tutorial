@@ -30,6 +30,9 @@ Run MongoDB
 ```
 cd mongodb-linux-x86_64-rhel70-4.4.11
 ./bin/mongod --dbpath /tmp/mongodb
+```
+Clean MongoDB data
+```
 rm -rf /tmp/mongodb/*
 ```
 
@@ -37,7 +40,7 @@ rm -rf /tmp/mongodb/*
 Open new window
 SSH into machine 
 ```
-gcloud compute ssh --project=${PROJECT} --zone=${REGION1}-c ${VPC1}-mongodb1 --tunnel-through-iap
+gcloud compute ssh --project=${PROJECT} --zone=${REGION1}-c ${VPC1}-mongodb-n2 --tunnel-through-iap
 ```
 Install YCSB
 ```
@@ -55,7 +58,7 @@ small content file
 requestdistribution=zipfian
 recordcount=4096000
 operationcount=20000000
-workload=com.yahoo.ycsb.workloads.CoreWorkload
+workload=site.ycsb.workloads.CoreWorkload
 readallfields=true
 readproportion=0.5
 updateproportion=0.5
