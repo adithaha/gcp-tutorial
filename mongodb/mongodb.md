@@ -2,7 +2,7 @@
 Login with non-admin role.
 
 ## Set parameter
-[Parameter](https://github.com/adithaha/gcp-tutorial/blob/main/vpc/parameter.md)
+[Parameter](https://github.com/adithaha/gcp-tutorial/blob/main/common/parameter.md)
 
 ## create client vm 
 ```
