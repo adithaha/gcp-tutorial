@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: camel-log-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: camel-log
+  template:
+    metadata:
+      labels:
+        app: camel-log
+    spec:
+      containers:
+      - name: camel-log
+        image: gcr.io/${PROJECT}/camel-log:latest
+        ports:
+        - containerPort: 8080
