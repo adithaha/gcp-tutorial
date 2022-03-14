@@ -33,6 +33,16 @@ kubectl get pods -l app=camel-log
 POD_NAME=[POD_NAME]
 ```
 
+```
+gcloud container node-pools list --cluster sample-cluster --zone "${REGION1}-c" --project=${PROJECT}
+
+gcloud container node-pools create pool2 --cluster sample-cluster --zone "${REGION1}-c" --project=${PROJECT} \
+ --machine-type e2-medium \
+ --num-nodes 3 \
+ --scopes https://www.googleapis.com/auth/devstorage.read_only
+
+```
+
 Get logs and enter shell
 ```
 kubectl logs -f ${POD_NAME}
