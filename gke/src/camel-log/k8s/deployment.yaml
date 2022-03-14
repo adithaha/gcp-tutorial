@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: camel-log
-        image: gcr.io/${PROJECT}/camel-log:latest
+        image: asia.gcr.io/${PROJECT}/camel-log:latest
         ports:
         - containerPort: 8080
