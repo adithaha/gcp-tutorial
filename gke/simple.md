@@ -2,8 +2,8 @@
 ## create gke cluster
 ```
 gcloud services enable container.googleapis.com --project=${PROJECT}
-gcloud container clusters create sample-cluster --zone "asia-southeast2-c" --machine-type "e2-medium" --release-channel "stable" --network "devnet" --subnetwork "jakarta" --num-nodes 3 --enable-shielded-nodes --project=${PROJECT}
-gcloud container clusters get-credentials sample-cluster --zone "asia-southeast2-c" --project=${PROJECT}
+gcloud container clusters create sample-cluster --zone "${REGION1}-c" --machine-type "e2-medium" --release-channel "stable" --network ${VPC1} --subnetwork ${VPC1}-${REGION1} --num-nodes 3 --enable-shielded-nodes --project=${PROJECT}
+gcloud container clusters get-credentials sample-cluster --zone "${REGION1}-c" --project=${PROJECT}
 ```
 
 ## deploy Hello App
