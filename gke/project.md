@@ -34,7 +34,7 @@ gcloud resource-manager org-policies disable-enforce iam.allowedPolicyMemberDoma
 
 gcloud org-policies describe iam.allowedPolicyMemberDomains --project=${PROJECT}
 gcloud services enable orgpolicy.policy.get  --project=${PROJECT}
-{"name":"projects/gke-test-325904/policies/iam.allowedPolicyMemberDomains","spec":{"rules": [{"allowAll":true}]}}
+{"name":"projects/${PROJECT}/policies/iam.allowedPolicyMemberDomains","spec":{"rules": [{"allowAll":true}]}}
 
 gcloud org-policies set-policy iam.json
 
@@ -65,4 +65,4 @@ gcloud compute firewall-rules create allow-ssh-ingress-from-iap \
 ```
 
 ### Go back
-[Content](https://github.com/adithaha/temp/blob/main/gke/readme.md)
+[Content](https://github.com/adithaha/gcp-tutorial/blob/main/gke/readme.md)
