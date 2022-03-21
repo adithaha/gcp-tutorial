@@ -24,7 +24,16 @@ docker run asia.gcr.io/gke-test-325904/camel-log
 ```
 docker push asia.gcr.io/${PROJECT}/camel-log
 ```
+## create gke cluster
+```
+gcloud services enable container.googleapis.com --project=${PROJECT}
+gcloud container clusters create sample-cluster --zone "${REGION1}-c" --machine-type "e2-medium" --release-channel "stable" --network ${VPC1} --subnetwork ${VPC1}-${REGION1} --num-nodes 3 --enable-shielded-nodes --project=${PROJECT} --scopes=https://www.googleapis.com/auth/devstorage.read_only 
+gcloud container clusters get-credentials sample-cluster --zone "${REGION1}-c" --project=${PROJECT}
 
+kubectl create namespace sample-app
+kubectl config set-context --current --namespace=sample-app
+
+```
 ## Deploy
 ```
 kubectl apply -f k8s/deployment.yaml
