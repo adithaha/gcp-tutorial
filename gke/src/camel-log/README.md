@@ -29,6 +29,10 @@ docker push asia.gcr.io/${PROJECT}/camel-log
 gcloud projects add-iam-policy-binding ${PROJECT} \
  --member="serviceAccount:${PROJECT_NUM}-compute@developer.gserviceaccount.com" \
  --role="roles/storage.objectViewer"
+ 
+ gcloud projects add-iam-policy-binding ${PROJECT} \
+ --member="serviceAccount:${PROJECT_NUM}-compute@developer.gserviceaccount.com" \
+ --role="roles/logging.logWriter"
 ```
 
 ## create gke cluster
