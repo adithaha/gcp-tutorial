@@ -1,5 +1,6 @@
 package com.google.adit.camel;
 
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class MySpringBootRouter extends RouteBuilder {
 
-	@Override
+    @Override
     public void configure() {
     	from("timer:hello?period={{timer.period}}").routeId("hello").autoStartup(true)
-            .log("key-${exchangeProperty.CamelTimerFiredTime.getTime}");
-    	
+            .log("key-${exchangeProperty.CamelTimerFiredTime.getTime}")
+            .log(LoggingLevel.WARN,"key-${exchangeProperty.CamelTimerFiredTime.getTime}");
     	
     }
 
