@@ -6,4 +6,4 @@ gcloud run deploy hello-app --image=gcr.io/google-samples/hello-app:1.0 --projec
 ```
 
 ### Go back
-[Content](https://github.com/adithaha/tree/main/cloudrun)
+[Content](https://github.com/adithaha/gcp-tutorial/tree/main/cloudrun)
