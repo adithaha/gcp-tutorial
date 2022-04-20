@@ -2,5 +2,5 @@
 ## delete project
 Delete run service
 ```
-gcloud run services delete ${PROJECT} --region ${REGION1}
+gcloud run services delete hello-app --region ${REGION1}
 ```
