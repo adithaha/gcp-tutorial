@@ -1,23 +1,6 @@
 # Deploy application in managed instance group
 
-## create health check
-create firewall for healthcheck
-```
-gcloud compute firewall-rules create fw-allow-health-check-${VPC1} \
-    --network=${VPC1} \
-    --action=allow \
-    --direction=ingress \
-    --source-ranges=130.211.0.0/22,35.191.0.0/16 \
-    --target-tags=fw-allow-health-check-${VPC1} \
-    --rules=tcp:8080
-```
-
-create health check
-```
-gcloud compute health-checks create http http-basic-check --port 8080 --check-interval 10s --unhealthy-threshold 3
-```
-
-## create template
+## create MIG template
 With VPC1 REGION1
 ```
 gcloud compute instance-templates create-with-container mig-lb-template-${VPC1}-${REGION1} --machine-type e2-small \
