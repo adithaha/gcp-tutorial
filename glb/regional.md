@@ -79,8 +79,8 @@ gcloud compute url-maps create rlb-map-http-${VPC1}-${REGION1} \
 
 Create target proxies
 ```
-gcloud compute target-http-proxies create mig-rlb-proxy-${VPC1}-${REGION1} \
-    --url-map=mig-rlb-map-http-${VPC1}-${REGION1}
+gcloud compute target-http-proxies create rlb-proxy-${VPC1}-${REGION1} \
+    --url-map=rlb-map-http-${VPC1}-${REGION1} \
     --region=${REGION1}
 
 ```
@@ -88,26 +88,21 @@ gcloud compute target-http-proxies create mig-rlb-proxy-${VPC1}-${REGION1} \
 Create forwarding rules
 ```
 gcloud compute forwarding-rules create rlb-fw-rule-${VPC1}-${REGION1} \
+    --load-balancing-scheme=EXTERNAL_MANAGED \
     --network-tier=STANDARD \
     --network=${VPC1} \
     --address=rlb-${VPC1}-${REGION1} \
     --ports=80 \
     --region=${REGION1} \
-    --target-http-proxy=mig-lb-proxy-${VPC1}-${REGION1} \
+    --target-http-proxy=rlb-proxy-${VPC1}-${REGION1} \
     --target-http-proxy-region=${REGION1}
     
 
-gcloud compute forwarding-rules create l7-xlb-forwarding-rule \
-    --load-balancing-scheme=EXTERNAL_MANAGED \
-    --network-tier=STANDARD \
-    --network=lb-network \
-    --address=ADDRESS_NAME \
-    --ports=80 \
-    --region=us-west1 \
-    --target-http-proxy=l7-xlb-proxy \
-    --target-http-proxy-region=us-west1
-
 ```
+
+gcloud beta compute addresses describe rlb-${VPC1}-${REGION1} \
+    --format="get(address)" \
+    --region=${REGION1}
 
 ### Go back
 [Content](https://github.com/adithaha/gcp-tutorial/blob/main/glb/readme.md)
