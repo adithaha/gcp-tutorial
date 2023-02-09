@@ -28,6 +28,8 @@ gcloud compute firewall-rules create fw-allow-proxies-${VPC1}-${REGION1} \
   --source-ranges=10.129.0.0/23 \
   --target-tags=load-balanced-backend \
   --rules=tcp:80,tcp:443,tcp:8080
+```
+```
 gcloud compute firewall-rules create fw-allow-proxies-${VPC1}-${REGION2} \
   --network=${VPC1} \
   --action=allow \
