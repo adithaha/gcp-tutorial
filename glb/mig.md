@@ -3,8 +3,8 @@
 ## create health check
 create firewall for healthcheck
 ```
-gcloud compute firewall-rules create fw-allow-health-check \
-    --network=devnet \
+gcloud compute firewall-rules create fw-allow-health-check-${VPC1} \
+    --network=${VPC1} \
     --action=allow \
     --direction=ingress \
     --source-ranges=130.211.0.0/22,35.191.0.0/16 \
@@ -19,9 +19,9 @@ gcloud compute health-checks create http http-basic-check --port 8080 --check-in
 
 ## create template
 ```
-gcloud compute instance-templates create-with-container mig-lb-template --machine-type e2-medium \
+gcloud compute instance-templates create-with-container mig-lb-template --machine-type e2-small \
     --subnet=jakarta --region=asia-southeast2 --boot-disk-size=10GB --boot-disk-type=pd-balanced \
-    --no-address --tags=allow-health-check,http-server --container-image=gcr.io/google-samples/hello-app:1.0
+    --no-address --tags=fw-allow-health-check,http-server --container-image=gcr.io/google-samples/hello-app:1.0
 ```
 
 ## create instance group
