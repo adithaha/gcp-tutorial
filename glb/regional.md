@@ -1,50 +1,5 @@
 # Create regional load balancer
 
-Create proxy
-```
-gcloud compute networks subnets create ${VPC1}-${REGION1}-proxy-only \
-  --purpose=REGIONAL_MANAGED_PROXY \
-  --role=ACTIVE \
-  --region=${REGION1} \
-  --network=${VPC1} \
-  --range=10.129.0.0/23
-```
-```
-gcloud compute networks subnets create ${VPC1}-${REGION2}-proxy-only \
-  --purpose=REGIONAL_MANAGED_PROXY \
-  --role=ACTIVE \
-  --region=${REGION2} \
-  --network=${VPC1} \
-  --range=10.129.2.0/23
-```
-```
-gcloud compute firewall-rules create fw-allow-proxies-${VPC1}-${REGION1} \
-  --network=${VPC1} \
-  --action=allow \
-  --direction=ingress \
-  --source-ranges=10.129.0.0/23 \
-  --target-tags=load-balanced-backend \
-  --rules=tcp:80,tcp:443,tcp:8080
-```
-```
-gcloud compute firewall-rules create fw-allow-proxies-${VPC1}-${REGION2} \
-  --network=${VPC1} \
-  --action=allow \
-  --direction=ingress \
-  --source-ranges=10.129.2.0/23 \
-  --target-tags=load-balanced-backend \
-  --rules=tcp:80,tcp:443,tcp:8080
-```
-
-
-
-```
-gcloud compute health-checks create http http-basic-check-${VPC1}-${REGION1} \
-   --region=${REGION1} \
-   --request-path='/' \
-   --use-serving-port
-```
-
 ## Reserve IP for load balancer
 
 ```
