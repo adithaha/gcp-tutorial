@@ -3,6 +3,11 @@
 ## enable policy
 Allow all for org policy below
 ```
+compute.vmCanIpForward
+compute.vmExternalIpAccess
+```
+Disable enforce requireShieldedVm and requireOsLogin
+```
 sed -i 's/$PROJECT/'"${PROJECT}"'/g' iam/allowedPolicyMemberDomains.json
 gcloud org-policies set-policy iam/allowedPolicyMemberDomains.json
 
