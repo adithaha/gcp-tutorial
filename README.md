@@ -10,4 +10,4 @@
 ## Topic
 - [Cloud Run](https://github.com/adithaha/gcp-tutorial/tree/main/cloudrun)
 - [GKE](https://github.com/adithaha/gcp-tutorial/tree/main/gke)
-- [GLB with MIG](https://github.com/adithaha/gcp-tutorial/tree/main/glb)
+- [Load Balancer](https://github.com/adithaha/gcp-tutorial/tree/main/glb)
