@@ -35,44 +35,78 @@ gcloud compute firewall-rules create fw-allow-proxies-${VPC1}-${REGION2} \
   --target-tags=load-balanced-backend \
   --rules=tcp:80,tcp:443,tcp:8080
 ```
+
+
+
 ```
-gcloud compute addresses create lb-${VPC1}-${REGION1}  \
+gcloud compute health-checks create http http-basic-check-${VPC1}-${REGION1} \
+   --region=${REGION1} \
+   --request-path='/' \
+   --use-serving-port
+```
+```
+gcloud compute addresses create rlb-${VPC1}-${REGION1}  \
    --region=${REGION1} \
    --network-tier=STANDARD
 ```
+
 ```
-gcloud compute addresses create lb-${VPC1}-${REGION2}  \
-   --region=${REGION2} \
-   --network-tier=STANDARD
-```
-```
-gcloud compute addresses describe lb-${VPC1}-${REGION1}
-gcloud compute addresses describe lb-${VPC1}-${REGION2}
+gcloud compute addresses describe rlb-${VPC1}-${REGION1} --region=${REGION1}
 ```
 Add backend services
 ```
-gcloud compute backend-services add-backend mig-lb-backend-${VPC1}-${REGION1} \
+gcloud compute backend-services create rlb-backend-${VPC1}-${REGION1} \
+    --region=${REGION1} \
+    --load-balancing-scheme=EXTERNAL_MANAGED \
+    --protocol=HTTP \
+    --port-name=http \
+    --health-checks=http-basic-check-${VPC1}-${REGION1} \
+    --health-checks-region=${REGION1}
+    
+gcloud compute backend-services add-backend rlb-backend-${VPC1}-${REGION1} \
+    --balancing-mode=UTILIZATION \
     --instance-group=mig-lb-instance-group-${VPC1}-${REGION1} \
     --instance-group-region=${REGION1} \
-    --global
+    --region=${REGION1}
 ```
 
 Create url-maps
 ```
-gcloud compute url-maps create mig-lb-map-http-${VPC1}-${REGION1} --default-service mig-lb-backend-${VPC1}-${REGION1}
+gcloud compute url-maps create rlb-map-http-${VPC1}-${REGION1} \
+    --default-service rlb-backend-${VPC1}-${REGION1} \
+    --region=${REGION1}
 ```
 
 Create target proxies
 ```
-gcloud compute target-http-proxies create mig-lb-proxy-${VPC1}-${REGION1} --url-map=mig-lb-map-http-${VPC1}-${REGION1}
+gcloud compute target-http-proxies create mig-rlb-proxy-${VPC1}-${REGION1} \
+    --url-map=mig-rlb-map-http-${VPC1}-${REGION1}
+    --region=${REGION1}
+
 ```
 
 Create forwarding rules
 ```
-gcloud compute forwarding-rules create mig-lb-content-rule-${VPC1}-${REGION1} \
-    --global \
+gcloud compute forwarding-rules create rlb-fw-rule-${VPC1}-${REGION1} \
+    --network-tier=STANDARD \
+    --network=${VPC1} \
+    --address=rlb-${VPC1}-${REGION1} \
+    --ports=80 \
+    --region=${REGION1} \
     --target-http-proxy=mig-lb-proxy-${VPC1}-${REGION1} \
-    --ports=80
+    --target-http-proxy-region=${REGION1}
+    
+
+gcloud compute forwarding-rules create l7-xlb-forwarding-rule \
+    --load-balancing-scheme=EXTERNAL_MANAGED \
+    --network-tier=STANDARD \
+    --network=lb-network \
+    --address=ADDRESS_NAME \
+    --ports=80 \
+    --region=us-west1 \
+    --target-http-proxy=l7-xlb-proxy \
+    --target-http-proxy-region=us-west1
+
 ```
 
 ### Go back
