@@ -23,3 +23,7 @@ Allow all for org policy below
 sed -i 's/$PROJECT/'"${PROJECT}"'/g' iam/allowedPolicyMemberDomains.json
 gcloud org-policies set-policy iam/allowedPolicyMemberDomains.json
 ```
+
+## set parameter
+[Set Parameter](https://github.com/adithaha/gcp-tutorial/blob/main/common/parameter.md)
+
