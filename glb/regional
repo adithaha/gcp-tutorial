@@ -35,7 +35,20 @@ gcloud compute firewall-rules create fw-allow-proxies-${VPC1}-${REGION2} \
   --target-tags=load-balanced-backend \
   --rules=tcp:80,tcp:443,tcp:8080
 ```
-
+```
+gcloud compute addresses create lb-${VPC1}-${REGION1}  \
+   --region=${REGION1} \
+   --network-tier=STANDARD
+```
+```
+gcloud compute addresses create lb-${VPC1}-${REGION2}  \
+   --region=${REGION2} \
+   --network-tier=STANDARD
+```
+```
+gcloud compute addresses describe lb-${VPC1}-${REGION1}
+gcloud compute addresses describe lb-${VPC1}-${REGION2}
+```
 Add backend services
 ```
 gcloud compute backend-services add-backend mig-lb-backend-${VPC1}-${REGION1} \
