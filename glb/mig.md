@@ -49,6 +49,7 @@ gcloud compute instance-groups managed create mig-lb-instance-group-${VPC1}-${RE
 
 
 create named ports for instance group
+
 With VPC1 REGION1
 ```
 gcloud compute instance-groups set-named-ports mig-lb-instance-group-${VPC1}-${REGION1} --named-ports http:8080 \
