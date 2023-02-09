@@ -37,31 +37,6 @@ gcloud services enable orgpolicy.policy.get  --project=${PROJECT}
 {"name":"projects/gke-test-325904/policies/iam.allowedPolicyMemberDomains","spec":{"rules": [{"allowAll":true}]}}
 
 gcloud org-policies set-policy iam.json
-
-
-```
-# Create VPC and enable IAP
-Login with non-admin role.
-## Set parameter
-```
-PROJECT=[PROJECT_ID]
-gcloud config set project ${PROJECT}
-```
-## create vpc
-```
-gcloud compute networks create devnet --project=${PROJECT} --subnet-mode=custom --mtu=1460 --bgp-routing-mode=regional
-gcloud compute networks subnets create jakarta --project=${PROJECT} --range=10.148.0.0/20 --network=devnet --region=asia-southeast2
-gcloud compute networks subnets create singapore --project=${PROJECT} --range=10.146.0.0/20 --network=devnet --region=asia-southeast1
-```
-## create firewall
-```
-gcloud compute firewall-rules create allow-ssh-ingress-from-iap \
-  --direction=INGRESS \
-  --action=allow \
-  --rules=tcp:22 \
-  --source-ranges=35.235.240.0/20 \
-  --project=${PROJECT} \
-  --network=devnet
 ```
 
 ### Go back
