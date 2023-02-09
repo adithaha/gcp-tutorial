@@ -19,12 +19,14 @@ gcloud compute backend-services add-backend mig-lb-backend-${VPC1}-${REGION1} \
 
 Create url-maps
 ```
-gcloud compute url-maps create mig-lb-map-http-${VPC1}-${REGION1} --default-service mig-lb-backend-${VPC1}-${REGION1}
+gcloud compute url-maps create mig-lb-map-http-${VPC1}-${REGION1} \
+    --default-service mig-lb-backend-${VPC1}-${REGION1}
 ```
 
 Create target proxies
 ```
-gcloud compute target-http-proxies create mig-lb-proxy-${VPC1}-${REGION1} --url-map=mig-lb-map-http-${VPC1}-${REGION1}
+gcloud compute target-http-proxies create mig-lb-proxy-${VPC1}-${REGION1} \
+    --url-map=mig-lb-map-http-${VPC1}-${REGION1}
 ```
 
 Create forwarding rules
