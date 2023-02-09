@@ -19,22 +19,22 @@ gcloud compute health-checks create http http-basic-check --port 8080 --check-in
 
 ## create template
 ```
-gcloud compute instance-templates create-with-container mig-lb-template --machine-type e2-small \
-    --subnet=jakarta --region=asia-southeast2 --boot-disk-size=10GB --boot-disk-type=pd-balanced \
+gcloud compute instance-templates create-with-container mig-lb-template-${VPC1}-${REGION1} --machine-type e2-small \
+    --subnet=${VPC1}-${REGION1} --region=${REGION1} --boot-disk-size=10GB --boot-disk-type=pd-balanced \
     --no-address --tags=fw-allow-health-check,http-server --container-image=gcr.io/google-samples/hello-app:1.0
 ```
 
 ## create instance group
 Create instance group based on previous template
 ```
-gcloud compute instance-groups managed create mig-lb-instance-group --template=mig-lb-template \
-    --size=2 --region=asia-southeast2 --health-check=http-basic-check --initial-delay=300
+gcloud compute instance-groups managed create mig-lb-instance-group-${VPC1}-${REGION1} --template=mig-lb-template-${VPC1}-${REGION1} \
+    --size=2 --region=${REGION1} --health-check=http-basic-check --initial-delay=300
 ```
 
 create named ports for instance group
 ```
-gcloud compute instance-groups set-named-ports mig-lb-instance-group --named-ports http:8080 \
-    --region asia-southeast2
+gcloud compute instance-groups set-named-ports mig-lb-instance-group-${VPC1}-${REGION1} --named-ports http:8080 \
+    --region ${REGION1}
 ```
 
 ### Go back
