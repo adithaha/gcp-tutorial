@@ -8,7 +8,7 @@ gcloud compute firewall-rules create fw-allow-health-check-${VPC1} \
     --action=allow \
     --direction=ingress \
     --source-ranges=130.211.0.0/22,35.191.0.0/16 \
-    --target-tags=allow-health-check \
+    --target-tags=fw-allow-health-check-${VPC1} \
     --rules=tcp:8080
 ```
 
