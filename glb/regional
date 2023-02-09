@@ -1,0 +1,66 @@
+# Create regional load balancer
+
+Create proxy
+```
+gcloud compute networks subnets create ${VPC1}-${REGION1}-proxy-only \
+  --purpose=REGIONAL_MANAGED_PROXY \
+  --role=ACTIVE \
+  --region=${REGION1} \
+  --network=${VPC1} \
+  --range=10.129.0.0/23
+```
+```
+gcloud compute networks subnets create ${VPC1}-${REGION2}-proxy-only \
+  --purpose=REGIONAL_MANAGED_PROXY \
+  --role=ACTIVE \
+  --region=${REGION2} \
+  --network=${VPC1} \
+  --range=10.129.2.0/23
+```
+```
+gcloud compute firewall-rules create fw-allow-proxies-${VPC1}-${REGION1} \
+  --network=${VPC1} \
+  --action=allow \
+  --direction=ingress \
+  --source-ranges=10.129.0.0/23 \
+  --target-tags=load-balanced-backend \
+  --rules=tcp:80,tcp:443,tcp:8080
+```
+```
+gcloud compute firewall-rules create fw-allow-proxies-${VPC1}-${REGION2} \
+  --network=${VPC1} \
+  --action=allow \
+  --direction=ingress \
+  --source-ranges=10.129.2.0/23 \
+  --target-tags=load-balanced-backend \
+  --rules=tcp:80,tcp:443,tcp:8080
+```
+
+Add backend services
+```
+gcloud compute backend-services add-backend mig-lb-backend-${VPC1}-${REGION1} \
+    --instance-group=mig-lb-instance-group-${VPC1}-${REGION1} \
+    --instance-group-region=${REGION1} \
+    --global
+```
+
+Create url-maps
+```
+gcloud compute url-maps create mig-lb-map-http-${VPC1}-${REGION1} --default-service mig-lb-backend-${VPC1}-${REGION1}
+```
+
+Create target proxies
+```
+gcloud compute target-http-proxies create mig-lb-proxy-${VPC1}-${REGION1} --url-map=mig-lb-map-http-${VPC1}-${REGION1}
+```
+
+Create forwarding rules
+```
+gcloud compute forwarding-rules create mig-lb-content-rule-${VPC1}-${REGION1} \
+    --global \
+    --target-http-proxy=mig-lb-proxy-${VPC1}-${REGION1} \
+    --ports=80
+```
+
+### Go back
+[Content](https://github.com/adithaha/gcp-tutorial/blob/main/glb/readme.md)
