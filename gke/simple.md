@@ -15,7 +15,7 @@ kubectl config view --minify | grep namespace:
 ```
 Deploy Hello App
 ```
-kubectl apply -f simple/deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/simple/deployment.yaml
 kubectl describe deployment hello-app-deployment
 kubectl get pods -l app=hello-app
 POD_NAME=[POD_NAME]
