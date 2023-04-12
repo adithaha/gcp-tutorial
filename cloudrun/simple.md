@@ -2,7 +2,7 @@
 ## create gke cluster
 ```
 gcloud services enable run.googleapis.com --project=${PROJECT}
-gcloud run deploy hello-app --image=gcr.io/google-samples/hello-app:1.0 --project=${PROJECT} --region=asia-southeast2 --allow-unauthenticated
+gcloud run deploy hello-app --image=gcr.io/google-samples/hello-app:1.0 --project=${PROJECT} --region=${REGION1} --allow-unauthenticated
 ```
 
 ### Go back
