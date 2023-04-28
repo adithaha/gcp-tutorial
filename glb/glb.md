@@ -2,7 +2,7 @@
 
 Create backend
 ```
-gcloud compute backend-services create mig-lb-backend-${VPC1}-${REGION1} \
+gcloud compute backend-services create glb-backend-${VPC1}-${REGION1} \
     --protocol=HTTP \
     --port-name=http \
     --health-checks=http-basic-check \
@@ -11,8 +11,8 @@ gcloud compute backend-services create mig-lb-backend-${VPC1}-${REGION1} \
 
 Add backend services
 ```
-gcloud compute backend-services add-backend mig-lb-backend-${VPC1}-${REGION1} \
-    --instance-group=mig-lb-instance-group-${VPC1}-${REGION1} \
+gcloud compute backend-services add-backend glb-backend-${VPC1}-${REGION1} \
+    --instance-group=glb-backend-${VPC1}-${REGION1} \
     --instance-group-region=${REGION1} \
     --global
 ```
@@ -20,7 +20,7 @@ gcloud compute backend-services add-backend mig-lb-backend-${VPC1}-${REGION1} \
 Create url-maps
 ```
 gcloud compute url-maps create glb-map-http-${VPC1}-${REGION1} \
-    --default-service mig-lb-backend-${VPC1}-${REGION1}
+    --default-service glb-backend-${VPC1}-${REGION1}
 ```
 
 Create target proxies
