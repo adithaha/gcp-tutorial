@@ -3,23 +3,7 @@
 Administrator will create project, assign billing account and add non-admin user as project owner.
 
 Login with admin role.
-## Create project with billing account
-```
-gcloud projects create --name=nugraha-csql
-```
-### Set environment parameter
-```
-PROJECT=[PROJECT_ID]
-BILLING_ACCOUNT=[BILLING_ACCOUNT]
-```
-### Set billing id
-```
-gcloud beta billing projects link ${PROJECT} --billing-account ${BILLING_ACCOUNT}
-```
-### Grant owner to non admin user
-```
-gcloud projects add-iam-policy-binding ${PROJECT} --member=user:[USER_EMAIL] --role=roles/owner
-```
+
 ## Enable policy
 Allow all for org policy below
 ```
@@ -102,13 +86,13 @@ gcloud services vpc-peerings operations describe --name=operations/pssn.p24-2840
 
 ## create Cloud SQL instance 
 ```
-gcloud beta sql instances create dbmysql \
+gcloud sql instances create dbmysql \
 --database-version=MYSQL_5_7 \
 --cpu=1 \
 --memory=3840MB \
---region=${REGION} \
+--region=${REGION1} \
 --no-assign-ip \
---network=devnet \
+--network=${VPC1} \
 --storage-type=SSD \
 --storage-size=10GB
 ```
