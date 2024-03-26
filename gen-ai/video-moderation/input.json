@@ -1,0 +1,4 @@
+{
+  "inputUri": "gs://cloud-videointelligence-demo/assistant.mp4",
+  "features": ["EXPLICIT_CONTENT_DETECTION"]
+}
