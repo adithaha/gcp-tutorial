@@ -10,6 +10,7 @@ Disable enforce requireShieldedVm and requireOsLogin
 ```
 gcloud resource-manager org-policies disable-enforce compute.requireShieldedVm --project=${PROJECT}
 gcloud resource-manager org-policies disable-enforce compute.requireOsLogin --project=${PROJECT}
+gcloud resource-manager org-policies disable-enforce compute.trustedImageProjects --project=${PROJECT}
 
 
 gcloud resource-manager org-policies disable-enforce iam.allowedPolicyMemberDomains --project=${PROJECT}
