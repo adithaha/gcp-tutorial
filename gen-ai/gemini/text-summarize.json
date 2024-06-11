@@ -3,7 +3,7 @@
     "role": "user",
     "parts": [
       {
-        "text": "Summarize story from text files."
+        "text": "Summarize story from text files.."
       },
       {
         "fileData": {
