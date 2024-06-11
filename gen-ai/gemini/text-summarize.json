@@ -1,13 +1,17 @@
 {
   "contents": {
     "role": "user",
-    "parts": {
-        "text": "Give me a recipe for banana bread.",
+    "parts": [
+      {
+        "text": "Summarize story from text file."
+      },
+      {
         "fileData": {
           "mimeType": "text/plain",
           "fileUri": "gs://nugraha-genai/gemini/Story - The Dumb Man.txt"
         }
-    }
+      }
+    ]
   },
   "safety_settings": {
     "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
