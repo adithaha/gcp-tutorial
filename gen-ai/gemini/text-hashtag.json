@@ -1,0 +1,25 @@
+{
+  "contents": {
+    "role": "user",
+    "parts": [
+      {
+        "text": "Generate 5-10 hashtags that relate to the file text. Try to use more popular and engaging terms, e.g #Viral. Do not add content not related to the text."
+      },
+      {
+        "fileData": {
+          "mimeType": "text/plain",
+          "fileUri": "gs://nugraha-genai/gemini/Text - Pembayaran Pajak.txt"
+        }
+      }
+    ]
+  },
+  "safety_settings": {
+    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+    "threshold": "BLOCK_LOW_AND_ABOVE"
+  },
+  "generation_config": {
+    "temperature": 0.2,
+    "topP": 0.8,
+    "topK": 40
+  }
+}
