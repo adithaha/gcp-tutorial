@@ -4,8 +4,8 @@
     "parts": {
         "text": "Give me a recipe for banana bread.",
         "fileData": {
-          "mimeType": text/plain,
-          "fileUri": string
+          "mimeType": "text/plain",
+          "fileUri": "gs://nugraha-genai/gemini/Story - The Dumb Man.txt"
         }
     }
   },
