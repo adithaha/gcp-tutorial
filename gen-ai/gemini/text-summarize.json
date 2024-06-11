@@ -3,12 +3,14 @@
     "role": "user",
     "parts": [
       {
-        "text": "Summarize story from text files.."
+        "text": "Please provide a summary for the text file in Indonesian language.
+Provide chapter titles with timestamps, be concise and short, no need to provide chapter summaries.
+Do not make up any information that is not part of the audio and do not be verbose."
       },
       {
         "fileData": {
           "mimeType": "text/plain",
-          "fileUri": "gs://nugraha-genai/gemini/Story - The Dumb Man.txt"
+          "fileUri": "gs://nugraha-genai/gemini/Text - Pembayaran Pajak.txt"
         }
       }
     ]
