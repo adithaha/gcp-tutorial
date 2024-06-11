@@ -1,0 +1,11 @@
+{
+  "instances": [
+    {
+      "prompt": "TEXT_PROMPT"
+    }
+  ],
+  "parameters": {
+    "sampleCount": 2,
+    "storageUri": "gs://nugraha-genai/gemini/image/"
+  }
+}
