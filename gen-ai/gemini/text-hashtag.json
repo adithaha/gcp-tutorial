@@ -3,12 +3,12 @@
     "role": "user",
     "parts": [
       {
-        "text": "Generate 5-10 hashtags that relate to the audio file. Try to use more popular and engaging terms, e.g #Viral. Do not add content not related to the text."
+        "text": "Generate 5-10 hashtags that relate to the text file. Try to use more popular and engaging terms, e.g #Viral. Do not add content not related to the text."
       },
       {
         "fileData": {
           "mimeType": "text/plain",
-          "fileUri": "gs://nugraha-genai/gemini/Audio - JOT KELANA EPS 1 (8apr22).mp3"
+          "fileUri": "gs://nugraha-genai/gemini/Text - Pembayaran Pajak.txt"
         }
       }
     ]
