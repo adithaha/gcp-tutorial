@@ -3,14 +3,14 @@
     "role": "user",
     "parts": [
       {
-        "text": "Please provide a summary for the text file in Indonesian language.
+        "text": "Please provide a summary for the audio file in Indonesian language.
 Provide chapter titles, be concise and short, no need to provide chapter summaries.
 Do not make up any information that is not part of the audio and do not be verbose."
       },
       {
         "fileData": {
           "mimeType": "text/plain",
-          "fileUri": "gs://nugraha-genai/gemini/Text - Pembayaran Pajak.txt"
+          "fileUri": "gs://nugraha-genai/gemini/Audio - JOT KELANA EPS 1 (8apr22).mp3"
         }
       }
     ]
