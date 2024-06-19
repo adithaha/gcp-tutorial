@@ -3,9 +3,8 @@
     "role": "user",
     "parts": [
       {
-        "text": "Please provide a summary for the audio file in Indonesian language.
-Provide chapter titles, be concise and short, no need to provide chapter summaries.
-Do not make up any information that is not part of the audio and do not be verbose."
+        "text": "Please provide a summary for the audio file in Indonesian language with 10-20 words. Do not make up any information that is not part of the audio and do not be verbose.
+"
       },
       {
         "fileData": {
