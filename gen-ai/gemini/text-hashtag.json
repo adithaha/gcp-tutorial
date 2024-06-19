@@ -3,7 +3,7 @@
     "role": "user",
     "parts": [
       {
-        "text": "Generate 5-10 hashtags that relate to the file text. Try to use more popular and engaging terms, e.g #Viral. Do not add content not related to the text."
+        "text": "Generate 5-10 hashtags that relate to the audio file. Try to use more popular and engaging terms, e.g #Viral. Do not add content not related to the text."
       },
       {
         "fileData": {
