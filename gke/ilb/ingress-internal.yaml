@@ -10,4 +10,4 @@ spec:
     service:
       name: hello-app-internal-cluster
       port:
-        number: 80
+        number: 8080
