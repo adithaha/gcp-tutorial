@@ -19,6 +19,8 @@ kubectl apply -f ingress/deployment.yaml
 Create service nodeport
 ```
 kubectl create -f ingress/service-nodeport.yaml
+kubectl create -f ingress/service-nodeport1.yaml
+kubectl create -f ingress/service-nodeport2.yaml
 kubectl get svc
 ```
 Create ingress
