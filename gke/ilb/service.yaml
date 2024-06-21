@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-app-internal
+  name: hello-app-internal-cluster
   labels:
-    run: hello-app-internal
+    run: hello-app-internal-cluster
   annotations:
     networking.gke.io/load-balancer-type: "Internal"
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - name: 8080-8080
     port: 8080
