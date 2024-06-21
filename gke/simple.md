@@ -38,4 +38,4 @@ kubectl get svc
 ```
 
 ### Go back
-[Content](https://github.com/adithaha/temp/blob/main/gke/readme.md)
+[Content](https://github.com/adithaha/gke/blob/main/gke/readme.md)
