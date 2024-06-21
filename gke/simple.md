@@ -5,6 +5,11 @@ gcloud services enable container.googleapis.com --project=${PROJECT}
 gcloud container clusters create sample-cluster --zone "${REGION1}-c" --machine-type "e2-medium" --release-channel "stable" --network ${VPC1} --subnetwork ${VPC1}-${REGION1} --num-nodes 3 --enable-shielded-nodes --project=${PROJECT} --scopes=https://www.googleapis.com/auth/devstorage.read_only 
 gcloud container clusters get-credentials sample-cluster --zone "${REGION1}-c" --project=${PROJECT}
 ```
+## Set nodes number to 1
+```
+cloud container clusters resize sample-cluster --node-pool default-pool \
+    --num-nodes 1
+```
 
 ## deploy Hello App
 Create namespace
