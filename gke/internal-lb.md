@@ -7,6 +7,8 @@ Setup internal load balancer, and test from client VM
 ```
 kubectl config set-context --current --namespace=sample-app
 kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ilb/service.yaml
+kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ilb/ingress-internal.yaml
+
 ```
 Check load balancer IP in EXTERNAL-IP column
 ```
