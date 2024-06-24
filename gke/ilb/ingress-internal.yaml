@@ -4,7 +4,7 @@ metadata:
   name: hello-app-ingress-internal
   namespace: sample-app
   annotations:
-    kubernetes.io/spec.ingressClassName: "gce-internal"
+    kubernetes.io/ingress.class: "gce-internal"
 spec:
   defaultBackend:
     service:
