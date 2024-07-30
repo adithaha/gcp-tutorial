@@ -1,16 +1,8 @@
 
 # Setup access via Ingress
 
-## Go to GCP project
-```
-PROJECT=[PROJECT_ID]
-gcloud config set project ${PROJECT}
-```
-## Go to GKE cluster
-```
-gcloud container clusters get-credentials sample-cluster --zone ${REGION1}-c --project=${PROJECT}
-kubectl config set-context --current --namespace=sample-app
-```
+## Acquire GKE access
+[Content](https://github.com/adithaha/gcp-tutorial/blob/main/gke/credential.md)
 
 ## Deploy second app
 ```
