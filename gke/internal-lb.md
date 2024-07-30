@@ -17,11 +17,10 @@ kubectl get svc hello-app-internal
 
 # Create Client VM
 ```
-PROJECT=[PROJECT_ID]
-gcloud config set project ${PROJECT}
 gcloud services enable compute.googleapis.com --project=${PROJECT}
-gcloud compute instances create gke-client --machine-type e2-medium --zone asia-southeast2-c --network devnet --subnet jakarta
+gcloud compute instances create gke-client --machine-type e2-medium --zone ${REGION1}-c --network ${VPC1} --subnet jakarta
 ```
+
 ## create firewall to access client SSH
 ```
 gcloud compute firewall-rules create allow-ssh-ingress-from-iap \
@@ -35,7 +34,7 @@ gcloud compute firewall-rules create allow-ssh-ingress-from-iap \
 # Call App from client VM
 SSH into client VM
 ```
-gcloud compute ssh --project=${PROJECT} --zone=asia-southeast2-c gke-client --tunnel-through-iap
+gcloud compute ssh --project=${PROJECT} --zone=${REGION1}-c gke-client --tunnel-through-iap
 ```
 Inside client VM, call Hello App using internal load balancer
 ```
