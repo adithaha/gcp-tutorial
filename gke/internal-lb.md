@@ -1,6 +1,8 @@
 # Internal Load Balancer
 Setup internal load balancer, and test from client VM
 
+## Acquire GKE access
+[credential](https://github.com/adithaha/gcp-tutorial/blob/main/gke/credential.md)
 
 
 # Create Internal LB
