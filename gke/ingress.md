@@ -2,7 +2,7 @@
 # Setup access via Ingress
 
 ## Acquire GKE access
-[Content](https://github.com/adithaha/gcp-tutorial/blob/main/gke/credential.md)
+[credential](https://github.com/adithaha/gcp-tutorial/blob/main/gke/credential.md)
 
 ## Deploy second app
 ```
