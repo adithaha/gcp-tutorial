@@ -42,4 +42,4 @@ curl <IP-INTERNAL-LB>:8080
 ```
 
 ### Go back
-[Content](https://github.com/adithaha/temp/blob/main/gke/readme.md)
+[Content](https://github.com/adithaha/gcp-tutorial/blob/main/gke/readme.md)
