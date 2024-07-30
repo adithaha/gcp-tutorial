@@ -1,4 +1,9 @@
 # Shutdown/remove all resources
+
+### Acquire GKE credential
+[credential](https://github.com/adithaha/gcp-tutorial/blob/main/gke/credential.md)
+
+
 ## stop cluster
 ```
 gcloud container clusters resize sample-cluster --node-pool default-pool --num-nodes 0 --zone ${REGION1}-c
@@ -25,3 +30,5 @@ gcloud projects delete ${PROJECT}
 
 gcloud run deploy hello-app --image=gcr.io/google-samples/hello-app:1.0 --project=${PROJECT} --region=us-central1 --allow-unauthenticated
 
+### Go back
+[Content](https://github.com/adithaha/gcp-tutorial/blob/main/gke/readme.md)
