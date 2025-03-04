@@ -1,6 +1,4 @@
 
-
-```
 ### Create vpc
 ```
 gcloud config set project ${PROJECT}
@@ -71,6 +69,8 @@ DMS_DEST_IP=<dms-dest-ip>
 ## create client vm 
 ```
 gcloud compute instances create mydb-client --project=${PROJECT} --zone=${ZONE} --machine-type=e2-small --subnet=${REGION} --boot-disk-size=10GB --boot-disk-type=pd-balanced --tags=http-server
+
+gcloud beta compute instances start devnet1-jkt-vm1-e2 --no-graceful-shutdown --zone=ZONE
 ```
 
 ### Access Cloud SQL from VM
@@ -101,13 +101,15 @@ unzip test_db-master.zip
 unzip v1.0.7.zip 
 cd test_db-1.0.7/
 mysql --ssl-mode=DISABLED --host=<dms-src-ip> --user=root -t < employees.sql
+time mysql --ssl-mode=DISABLED --host=<dms-src-ip> --user=root -t < test_employees_sha.sql
 ```
 
 
 ## Delete resources
 ```
 gcloud sql instances delete dms-src
-gcloud compute instances delete mydb-client --zone=${ZONE}
+gcloud sql instances delete dms-dest
+gcloud beta compute instances stop devnet1-jkt-vm1-e2 --no-graceful-shutdown --zone=ZONE
 ```
 
 
