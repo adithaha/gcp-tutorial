@@ -91,7 +91,7 @@ sudo apt-get install mysql-client
 
 Try connecting mysql
 ```
-mysql --ssl-mode=DISABLED --host=10.167.0.3 --user=root
+mysql --ssl-mode=DISABLED --host=<dms-src-ip> --user=root
 exit
 ```
 
