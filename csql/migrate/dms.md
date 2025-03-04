@@ -61,7 +61,8 @@ gcloud sql instances create dms-dest \
 
 ### Note Cloud SQL internal IP address
 ```
-gcloud beta sql instances describe dbmysql | grep ipAddress:
+gcloud beta sql instances describe dms-src | grep ipAddress:
+gcloud beta sql instances describe dms-dest | grep ipAddress:
 ```
 
 ## create client vm 
