@@ -34,12 +34,11 @@ gcloud sql instances create dms-src \
 --cpu=1 --memory=3840MB \
 --project=${PROJECT} \
 --region=${REGION1} \
---enable-private-service-connect \
---allowed-psc-projects=${PROJECT} \
 --no-assign-ip \
 --network=${VPC1} \
 --storage-type=HDD \
---storage-size=100GB
+--storage-size=20GB \
+--enable-google-private-path
 ```
 ## create Cloud SQL instance destination
 ```
@@ -49,12 +48,11 @@ gcloud sql instances create dms-dest \
 --memory=3840MB \
 --project=${PROJECT} \
 --region=${REGION1} \
---enable-private-service-connect \
---allowed-psc-projects=${PROJECT} \
 --no-assign-ip \
 --network=${VPC1} \
 --storage-type=HDD \
---storage-size=100GB
+--storage-size=20GB \
+--enable-google-private-path
 ```
 
 ### Note Cloud SQL internal IP address
@@ -103,8 +101,28 @@ cd test_db-1.0.7/
 mysql --ssl-mode=DISABLED --host=<dms-src-ip> --user=root -t < employees.sql
 time mysql --ssl-mode=DISABLED --host=<dms-src-ip> --user=root -t < test_employees_sha.sql
 ```
+## DMS
+```
+gcloud sql instances patch dms-src --backup-start-time=05:00
+gcloud sql instances patch dms-src --enable-bin-log
+gcloud sql instances patch dms-src --database-flags=general_log=on,slow_query_log=on,log_output=FILE
 
+gcloud sql instances patch dms-dest --backup-start-time=05:00
+gcloud sql instances patch dms-dest --enable-bin-log
+gcloud sql instances patch dms-dest --database-flags=general_log=on,slow_query_log=on,log_output=FILE
 
+```
+
+```
+#!/bin/bash
+for i in $(seq 1 5000)
+do
+   echo "Welcome $i times"
+   mysql --ssl-mode=DISABLED --host=<src-ip> --user=root -e "INSERT INTO employees.employees( emp_no, birth_date, first_name, last_name, gender, hire_date) VALUES (111111$i,'1958-05-01','Sachin','Tsukuda','M','1997-11-30');"
+done
+
+mysql --ssl-mode=DISABLED --host=<src-ip> --user=root -e "select count(*) from employees.employees;"
+```
 ## Delete resources
 ```
 gcloud sql instances delete dms-src
