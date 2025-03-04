@@ -64,7 +64,10 @@ gcloud sql instances create dms-dest \
 gcloud beta sql instances describe dms-src | grep ipAddress:
 gcloud beta sql instances describe dms-dest | grep ipAddress:
 ```
-
+```
+DMS_SRC_IP=<dms-src-ip>
+DMS_DEST_IP=<dms-dest-ip>
+```
 ## create client vm 
 ```
 gcloud compute instances create mydb-client --project=${PROJECT} --zone=${ZONE} --machine-type=e2-small --subnet=${REGION} --boot-disk-size=10GB --boot-disk-type=pd-balanced --tags=http-server
@@ -76,10 +79,31 @@ gcloud compute ssh --project=${PROJECT} --zone=${ZONE} mydb-client --tunnel-thro
 ```
 ###  Inside VM
 ```
+mkdir dms
+cd dms
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.33-1_all.deb
+sudo dpkg -i mysql-apt-config_0.8.33-1_all.deb
 sudo apt-get update
-sudo apt install telnet
-telnet <csql-internal-ip> 3306
+sudo apt-get install telnet
+sudo apt-get install zip
+sudo apt-get install mysql-client
 ```
+
+Try connecting mysql
+```
+mysql --ssl-mode=DISABLED --host=10.167.0.3 --user=root
+exit
+```
+
+```
+wget https://github.com/datacharmer/test_db/archive/refs/tags/v1.0.7.zip
+unzip test_db-master.zip
+unzip v1.0.7.zip 
+cd test_db-1.0.7/
+mysql --ssl-mode=DISABLED --host=<dms-src-ip> --user=root -t < employees.sql
+```
+
+
 ## Delete resources
 ```
 gcloud sql instances delete dms-src
