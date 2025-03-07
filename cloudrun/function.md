@@ -35,10 +35,10 @@ gcloud functions deploy func-gen1 \
 
 Create cloud function gen 2
 ```
-gcloud functions deploy func-gen2 \
+gcloud functions deploy func-gen2-crun \
   --gen2 \
   --no-allow-unauthenticated \
-  --runtime nodejs21 \
+  --runtime nodejs20 \
   --entry-point helloWorld \
   --source . \
   --region asia-southeast2 \
@@ -48,9 +48,13 @@ gcloud functions deploy func-gen2 \
 Create cloud run function
 ```
 gcloud run deploy func-crun \
-   --source . \
-   --function helloWorld \
-   --base-image nodejs21 \
-   --region asia-southeast2
+  --source . \
+  --function helloWorld \
+  --base-image nodejs20 \
+  --no-allow-unauthenticated \
+  --region asia-southeast2
 ```
-  
+detach cloud function gen 2
+```
+gcloud beta functions detach
+```
