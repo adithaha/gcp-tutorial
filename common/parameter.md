@@ -2,8 +2,12 @@
 Login with non-admin role.
 
 ## Set parameter
+Project ID
 ```
 PROJECT=[PROJECT_ID]
+```
+Parameter
+```
 gcloud config set project ${PROJECT}
 
 VPC1=devnet1
