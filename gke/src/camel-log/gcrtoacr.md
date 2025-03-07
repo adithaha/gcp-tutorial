@@ -23,12 +23,14 @@ docker push asia.gcr.io/${PROJECT}/camel-log-2:v2
 docker images
 
 ### remove local
+docker rmi asia.gcr.io/${PROJECT}/camel-log
 docker rmi asia.gcr.io/${PROJECT}/camel-log-1
 docker rmi asia.gcr.io/${PROJECT}/camel-log-2
 docker rmi asia.gcr.io/${PROJECT}/camel-log-2:v1
 docker rmi asia.gcr.io/${PROJECT}/camel-log-2:v2
 
 ### pull image from gcr
+docker pull asia.gcr.io/${PROJECT}/camel-log
 docker pull asia.gcr.io/${PROJECT}/camel-log-1
 docker pull asia.gcr.io/${PROJECT}/camel-log-2
 docker pull asia.gcr.io/${PROJECT}/camel-log-2:v1
@@ -36,7 +38,9 @@ docker pull asia.gcr.io/${PROJECT}/camel-log-2:v2
 
 ### check local image
 docker images
+gcloud artifacts docker upgrade migrate --projects=$PROJECT
 
+gcloud storage rm gs://asia.artifacts.$PROJECT.appspot.com --recursive
 
 gcloud container images list-gcr-usage --project=$PROJECT
 gcloud projects add-iam-policy-binding $PROJECT --member='serviceAccount:service-$PROJECT_NUM@gcp-sa-artifactregistry.iam.gserviceaccount.com' --role='roles/storage.objectViewer'
