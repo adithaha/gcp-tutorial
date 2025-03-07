@@ -7,6 +7,7 @@ gcloud functions deploy func-gen1-instance   --gen1   --runtime nodejs16   --ent
   122  s
   123  ls
   124  
+  
 mkdir hello-http
 cd hello-http/
 {
@@ -19,6 +20,7 @@ cd hello-http/
 }
 
 Create cloud function gen 1
+```
 gcloud functions deploy func-gen1 \
   --no-gen2 \
   --no-allow-unauthenticated \
@@ -29,8 +31,10 @@ gcloud functions deploy func-gen1 \
   --trigger-http \
   --ingress-settings=internal-and-gclb \
   --timeout 300s
+```
 
 Create cloud function gen 2
+```
 gcloud functions deploy func-gen2 \
   --gen2 \
   --no-allow-unauthenticated \
@@ -40,11 +44,13 @@ gcloud functions deploy func-gen2 \
   --region asia-southeast2 \
   --trigger-http \
   --timeout 600s
-
+```
+Create cloud run function
+```
 gcloud run deploy func-crun \
    --source . \
    --function helloWorld \
    --base-image nodejs21 \
    --region asia-southeast2
-
+```
   
