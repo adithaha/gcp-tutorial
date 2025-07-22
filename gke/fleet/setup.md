@@ -1,31 +1,53 @@
 ## Create GKE cluster and deploy Hello App
 ## Create gke cluster 
 ```
-gcloud services enable container.googleapis.com --project=${PROJECT-HOST}
-gcloud services enable gkehub.googleapis.com --project=${PROJECT-HOST}
+gcloud services enable container.googleapis.com --project=${PROJECT_HOST}
+gcloud services enable gkehub.googleapis.com --project=${PROJECT_HOST}
 
-gcloud container fleet create --display-name=gke-fleet --project=${PROJECT-HOST}
+gcloud container fleet create --display-name=gke-fleet --project=${PROJECT_HOST}
 
-gcloud container clusters create cluster-${PROJECT-HOST} --zone "${REGION1}-c" --machine-type "e2-medium" --release-channel "stable" --network ${VPC1} --subnetwork ${VPC1}-${REGION1} --num-nodes 1 --enable-shielded-nodes --project=${PROJECT-HOST} --scopes=https://www.googleapis.com/auth/devstorage.read_only --async
+gcloud container clusters create cluster-${PROJECT_HOST} --zone "${REGION1}-c" --machine-type "e2-medium" --release-channel "stable" --network ${VPC1} --subnetwork ${VPC1}-${REGION1} --num-nodes 1 --enable-shielded-nodes --project=${PROJECT_HOST} --scopes=https://www.googleapis.com/auth/devstorage.read_only --async
 
-gcloud container clusters create cluster-${PROJECT-MEMBER} --zone "${REGION1}-c" --machine-type "e2-medium" --release-channel "stable" --network ${VPC1} --subnetwork ${VPC1}-${REGION1} --num-nodes 1 --enable-shielded-nodes --project=${PROJECT-MEMBER} --scopes=https://www.googleapis.com/auth/devstorage.read_only 
+gcloud container clusters create cluster-${PROJECT_MEMBER} --zone "${REGION1}-c" --machine-type "e2-medium" --release-channel "stable" --network ${VPC1} --subnetwork ${VPC1}-${REGION1} --num-nodes 1 --enable-shielded-nodes --project=${PROJECT_MEMBER} --scopes=https://www.googleapis.com/auth/devstorage.read_only 
 ```
 Check GKE cluster
 ```
-gcloud container clusters list --project=${PROJECT-HOST}
-gcloud container clusters list --project=${PROJECT-MEMBER}
+gcloud container clusters list --project=${PROJECT_HOST}
+gcloud container clusters list --project=${PROJECT_MEMBER}
 ```
 ## Get GKE credential
 Fetch the credentials for cluster
 ```
-gcloud container clusters get-credentials cluster-${PROJECT-HOST} --zone "${REGION1}-c" --project=${PROJECT-HOST}
-gcloud container clusters get-credentials cluster-${PROJECT-MEMBER} --zone "${REGION1}-c" --project=${PROJECT-MEMBER}
+gcloud container clusters get-credentials cluster-${PROJECT_HOST} --zone "${REGION1}-c" --project=${PROJECT-HOST}
+gcloud container clusters get-credentials cluster-${PROJECT_MEMBER} --zone "${REGION1}-c" --project=${PROJECT-MEMBER}
 ```
 Rename the cluster contexts so they are easier to reference later:
 ```
-kubectl config rename-context gke_PROJECT_ID_ZONE_${PROJECT-HOST} ${PROJECT-HOST}
-kubectl config rename-context gke_PROJECT_ID_ZONE_${PROJECT-MEMBER} ${PROJECT-MEMBER}
+kubectl config rename-context gke_PROJECT_ID_ZONE_${PROJECT_HOST} ${PROJECT_HOST}
+kubectl config rename-context gke_PROJECT_ID_ZONE_${PROJECT_MEMBER} ${PROJECT_MEMBER}
 ```
+
+
+## Register clusters to the fleet
+Enable the multi-cluster Gateway API on the cluster1 cluster
+```
+gcloud container clusters update cluster-${PROJECT_HOST}  --gateway-api=standard --region="${REGION1}-c"
+```
+Register the clusters to a fleet:
+```
+gcloud container fleet memberships register cluster-${PROJECT_HOST} \
+  --gke-cluster ${REGION1}-c/cluster-${PROJECT_HOST} \
+  --enable-workload-identity \
+  --project=${PROJECT_HOST}
+
+gcloud container fleet memberships register cluster-${PROJECT_MEMBER} \
+  --gke-cluster ${REGION1}-c/cluster-${PROJECT_MEMBER} \
+  --enable-workload-identity \
+  --project=${PROJECT_MEMBER}
+```
+
+
+
 ## Set nodes number to 1
 ```
 cloud container clusters resize fleet-${PROJECT-HOST} --node-pool default-pool \
