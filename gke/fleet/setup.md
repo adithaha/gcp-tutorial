@@ -1,11 +1,16 @@
 ## Create GKE cluster and deploy Hello App
 ## Create gke cluster 
+Enable GKE and GKE HUB API
 ```
 gcloud services enable container.googleapis.com --project=${PROJECT_HOST}
 gcloud services enable gkehub.googleapis.com --project=${PROJECT_HOST}
-
+```
+Create GKE Fleet
+```
 gcloud container fleet create --display-name=gke-fleet --project=${PROJECT_HOST}
-
+```
+Create GKE Cluster
+```
 gcloud container clusters create cluster-${PROJECT_HOST} --zone "${REGION1}-c" --machine-type "e2-medium" --release-channel "stable" --network ${VPC1} --subnetwork ${VPC1}-${REGION1} --num-nodes 1 --enable-shielded-nodes --project=${PROJECT_HOST} --scopes=https://www.googleapis.com/auth/devstorage.read_only --async
 
 gcloud container clusters create cluster-${PROJECT_MEMBER} --zone "${REGION1}-c" --machine-type "e2-medium" --release-channel "stable" --network ${VPC1} --subnetwork ${VPC1}-${REGION1} --num-nodes 1 --enable-shielded-nodes --project=${PROJECT_MEMBER} --scopes=https://www.googleapis.com/auth/devstorage.read_only 
