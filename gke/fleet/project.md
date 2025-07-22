@@ -56,3 +56,10 @@ gcloud compute firewall-rules create ${VPC2}-allow-internal \
   --project=${PROJECT_HOST} \
   --network=${VPC2}
 ```
+## Policy
+```
+gcloud resource-manager org-policies disable-enforce compute.requireShieldedVm --project=${PROJECT_HOST}
+gcloud resource-manager org-policies disable-enforce compute.requireOsLogin --project=${PROJECT_HOST}
+gcloud resource-manager org-policies disable-enforce compute.trustedImageProjects --project=${PROJECT_HOST}
+gcloud resource-manager org-policies disable-enforce iam.allowedPolicyMemberDomains --project=${PROJECT_HOST}
+```
