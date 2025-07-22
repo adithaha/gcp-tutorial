@@ -1,16 +1,16 @@
 ## Create GKE cluster and deploy Hello App
-## Create gke cluster
+## Create gke cluster in PROJECT-FLEET
 ```
-gcloud services enable container.googleapis.com --project=${PROJECT-FLEET}
-gcloud container clusters create fleet-cluster-1 --zone "${REGION1}-c" --machine-type "e2-medium" --release-channel "stable" --network ${VPC1} --subnetwork ${VPC1}-${REGION1} --num-nodes 3 --enable-shielded-nodes --project=${PROJECT} --scopes=https://www.googleapis.com/auth/devstorage.read_only 
+gcloud services enable container.googleapis.com --project=${PROJECT-HOST}
+gcloud container clusters create fleet-${PROJECT-HOST} --zone "${REGION1}-c" --machine-type "e2-medium" --release-channel "stable" --network ${VPC1} --subnetwork ${VPC1}-${REGION1} --num-nodes 3 --enable-shielded-nodes --project=${PROJECT-HOST} --scopes=https://www.googleapis.com/auth/devstorage.read_only 
 ```
 ## Get GKE credential
 ```
-gcloud container clusters get-credentials sample-cluster --zone "${REGION1}-c" --project=${PROJECT}
+gcloud container clusters get-credentials fleet-${PROJECT-HOST} --zone "${REGION1}-c" --project=${PROJECT-HOST}
 ```
 ## Set nodes number to 1
 ```
-cloud container clusters resize sample-cluster --node-pool default-pool \
+cloud container clusters resize fleet-${PROJECT-HOST} --node-pool default-pool \
     --num-nodes 1
 ```
 
@@ -41,4 +41,4 @@ kubectl get svc
 ```
 
 ### Go back
-[Content](https://github.com/adithaha/gcp-tutorial/blob/main/gke/readme.md)
+[Content](https://github.com/adithaha/gcp-tutorial/blob/main/gke/fleet/readme.md)
