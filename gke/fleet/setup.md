@@ -42,8 +42,11 @@ gcloud container clusters list --project=${PROJECT_MEMBER}
 ## Get GKE credential
 Fetch the credentials for cluster
 ```
-gcloud container clusters get-credentials cluster-${PROJECT_HOST} --zone "${REGION1}-c" --project=${PROJECT-HOST}
-gcloud container clusters get-credentials cluster-${PROJECT_MEMBER} --zone "${REGION1}-c" --project=${PROJECT-MEMBER}
+gcloud container clusters get-credentials cluster-${PROJECT_HOST} \
+ --zone "${REGION1}-c" --project=${PROJECT-HOST}
+
+gcloud container clusters get-credentials cluster-${PROJECT_MEMBER} \
+ --zone "${REGION1}-c" --project=${PROJECT-MEMBER}
 ```
 Rename the cluster contexts so they are easier to reference later:
 ```
