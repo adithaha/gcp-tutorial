@@ -138,34 +138,6 @@ gcloud projects add-iam-policy-binding ${PROJECT_HOST} \
 
 kubectl get gatewayclasses --context=cluster-${PROJECT_HOST}
 ```
-## Delete
-
-```
-kubectl delete serviceexport store-west-2 --context cluster-${PROJECT_HOST} -n store
-kubectl delete service store-west-2 --context cluster-${PROJECT_HOST} -n store
-kubectl delete serviceexport store --context cluster-${PROJECT_HOST} -n store
-kubectl delete service store --context cluster-${PROJECT_HOST} -n store
-kubectl delete deployment store --context cluster-${PROJECT_HOST} -n store
-kubectl delete namespace store --context cluster-${PROJECT_HOST}
-
-kubectl delete serviceexport store-east-1 --context cluster-${PROJECT_MEMBER} -n store
-kubectl delete service store-east-1 --context cluster-${PROJECT_MEMBER} -n store
-kubectl delete serviceexport store --context cluster-${PROJECT_MEMBER} -n store
-kubectl delete service store --context cluster-${PROJECT_MEMBER} -n store
-kubectl delete deployment store --context cluster-${PROJECT_MEMBER} -n store
-kubectl delete namespace store --context cluster-${PROJECT_MEMBER}
-```
-
-
-```
-gcloud container fleet memberships unregister cluster-${PROJECT_MEMBER} \
-  --gke-cluster ${REGION1}-c/cluster-${PROJECT_MEMBER} \
-  --project=${PROJECT_MEMBER}
-```
-```
-gcloud container fleet delete --project ${PROJECT_MEMBER}
-```
-
 
 
 
