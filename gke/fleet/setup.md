@@ -93,12 +93,12 @@ Verify Fleet
 ```
 gcloud container fleet memberships list --project=${PROJECT_HOST}
 ```
-## MCS
+## Enable Multi Cluster Service
+Enable MCS
 ```
 gcloud container fleet multi-cluster-services enable --project ${PROJECT_HOST}
-gcloud container fleet multi-cluster-services describe --project=${PROJECT_HOST}
-
 ```
+IAM for MCS
 ```
  gcloud projects add-iam-policy-binding ${PROJECT_HOST} \
  --member "serviceAccount:${PROJECT_HOST}.svc.id.goog[gke-mcs/gke-mcs-importer]" \
@@ -109,30 +109,27 @@ gcloud projects add-iam-policy-binding ${PROJECT_HOST} \
     --member "principal://iam.googleapis.com/projects/${PROJECT_HOST_NUM}/locations/global/workloadIdentityPools/${PROJECT_HOST}.svc.id.goog/subject/ns/gke-mcs/sa/gke-mcs-importer" \
     --role "roles/compute.networkViewer"
 ```
-
-
-
-
-
-
-
+Check MCS
+```
+gcloud container fleet multi-cluster-services describe --project=${PROJECT_HOST}
 ```
 
 
 
+
+## Multi Cluster Gateway
+```
 gcloud container fleet ingress enable \
   --config-membership=cluster-${PROJECT_HOST} \
   --project=${PROJECT_HOST} \
   --location=${REGION1}
-
-gcloud container fleet ingress describe --project=${PROJECT_HOST}
 
 gcloud projects add-iam-policy-binding ${PROJECT_HOST} \
   --member "serviceAccount:service-${PROJECT_HOST_NUM}@gcp-sa-multiclusteringress.iam.gserviceaccount.com" \
   --role "roles/container.admin" \
   --project=${PROJECT_HOST}
 
-
+gcloud container fleet ingress describe --project=${PROJECT_HOST}
 kubectl get gatewayclasses --context=cluster-${PROJECT_HOST}
 ```
 
