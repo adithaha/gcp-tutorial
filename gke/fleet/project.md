@@ -2,8 +2,8 @@
 Login with non-admin role.
 
 ## Set parameter
-[Parameter](https://github.com/adithaha/gcp-tutorial/blob/main/common/parameter.md)
-[Parameter fleet](https://github.com/adithaha/gcp-tutorial/blob/main/gke/fleet/parameter.md)
+- [Parameter](https://github.com/adithaha/gcp-tutorial/blob/main/common/parameter.md)
+- [Parameter fleet](https://github.com/adithaha/gcp-tutorial/blob/main/gke/fleet/parameter.md)
 
 
 ## create vpc devnet1
