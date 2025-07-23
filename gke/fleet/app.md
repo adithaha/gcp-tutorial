@@ -148,29 +148,29 @@ metadata:
 EOF
 kubectl apply -f store-member-service.yaml --context=cluster-${PROJECT_MEMBER}
 ```
+
+### Check Service
+
 ```
-kubectl get serviceexports --context cluster-${PROJECT_HOST} --namespace store
-kubectl get serviceexports --context cluster-${PROJECT_MEMBER} --namespace store
+kubectl get serviceexports --context cluster-${PROJECT_HOST} --namespace store-host
+kubectl get service --context cluster-${PROJECT_HOST} --namespace store-host
+kubectl get endpoints --context cluster-${PROJECT_HOST} -n store-host
+kubectl get serviceimport --context cluster-${PROJECT_HOST} -n store-host
+
+kubectl get serviceexports --context cluster-${PROJECT_MEMBER} --namespace store-member
+kubectl get service --context cluster-${PROJECT_MEMBER} --namespace store-member
+kubectl get endpoints --context cluster-${PROJECT_MEMBER} -n store-member
+kubectl get serviceimport --context cluster-${PROJECT_MEMBER} -n store-member
 
 
-kubectl get service --context cluster-${PROJECT_MEMBER} --namespace store
-store          23m
-store-east-1   23m
 
-kubectl get endpoints --context cluster-${PROJECT_MEMBER} -n store
-
-kubectl get serviceimport --context cluster-${PROJECT_MEMBER} -n store
+kubectl get serviceimport --context cluster-${PROJECT_MEMBER} -n store-member
 NAME           TYPE           IP                   AGE
 store          ClusterSetIP   ["34.118.237.205"]   36m
 store-east-1   ClusterSetIP   ["34.118.234.121"]   36m
 store-west-2   ClusterSetIP   ["34.118.227.80"]    16m
 
 
-
-service/store created
-serviceexport.net.gke.io/store created
-service/store-west-2 created
-serviceexport.net.gke.io/store-west-2 created
 ```
 ## Check service
 kubectl describe deployment hello-app-deployment
