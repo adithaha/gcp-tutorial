@@ -1,4 +1,19 @@
 ## Create GKE cluster and deploy Hello App
+
+## IAM
+```
+gcloud beta services identity create --service=gkehub.googleapis.com --project=${PROJECT_HOST}
+
+gcloud projects add-iam-policy-binding "${PROJECT_HOST}" \
+  --member "serviceAccount:service-${PROJECT_HOST_NUM}@gcp-sa-gkehub.iam.gserviceaccount.com" \
+  --role roles/gkehub.serviceAgent
+gcloud projects add-iam-policy-binding "${PROJECT_MEMBER}" \
+  --member "serviceAccount:service-${PROJECT_HOST_NUM}@gcp-sa-gkehub.iam.gserviceaccount.com" \
+  --role roles/gkehub.serviceAgent
+gcloud projects add-iam-policy-binding "${PROJECT_MEMBER}" \
+  --member "serviceAccount:service-${PROJECT_HOST_NUM}@gcp-sa-gkehub.iam.gserviceaccount.com" \
+  --role roles/gkehub.crossProjectServiceAgent
+```
 ## Create gke cluster 
 Enable GKE and GKE HUB API
 ```
@@ -39,7 +54,7 @@ gcloud container clusters create cluster-${PROJECT_MEMBER} \
 Check GKE cluster
 ```
 gcloud container clusters list --project=${PROJECT_HOST}
-gcloud container clusters list --project=${PROJECT_MEMBER}
+gcloud container clusters list --project=${PROJECT_MEMBER} --uri
 ```
 ## Get GKE credential
 Fetch the credentials for cluster
@@ -62,7 +77,7 @@ Enable the multi-cluster Gateway API on the cluster1 cluster
 ```
 gcloud container clusters update cluster-${PROJECT_HOST}  --gateway-api=standard --region="${REGION1}-c"
 ```
-Register the clusters to a fleet:
+Use Workload pool if not yet:
 ```
 gcloud container clusters update cluster-${PROJECT_HOST} \
     --location=${REGION1}-c \
@@ -72,17 +87,32 @@ gcloud container clusters update cluster-${PROJECT_MEMBER} \
     --location=${REGION1}-c \
     --workload-pool=${PROJECT_MEMBER}.svc.id.goog \
     --project=${PROJECT_MEMBER}
-
+```
+Register the clusters to a fleet:
+```
 gcloud container fleet memberships register cluster-${PROJECT_HOST} \
   --gke-cluster ${REGION1}-c/cluster-${PROJECT_HOST} \
   --enable-workload-identity \
   --project=${PROJECT_HOST}
 
 gcloud container fleet memberships register cluster-${PROJECT_MEMBER} \
-  --gke-cluster ${REGION1}-c/cluster-${PROJECT_MEMBER} \
+  --gke-uri "https://container.googleapis.com/v1/projects/${PROJECT_MEMBER}/locations/${REGION1}-c/clusters/cluster-${PROJECT_MEMBER}" \
   --enable-workload-identity \
+  --project=${PROJECT_HOST}
+```
+
+## Delete
+
+```
+gcloud container fleet memberships unregister cluster-${PROJECT_MEMBER} \
+  --gke-cluster ${REGION1}-c/cluster-${PROJECT_MEMBER} \
   --project=${PROJECT_MEMBER}
 ```
+```
+gcloud container fleet delete --project ${PROJECT_MEMBER}
+```
+
+
 
 
 
