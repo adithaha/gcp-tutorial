@@ -117,10 +117,7 @@ gcloud container fleet multi-cluster-services enable --project ${PROJECT_HOST}
 ```
 gcloud container fleet multi-cluster-services describe --project=${PROJECT_HOST}
 
-gcloud projects add-iam-policy-binding PROJECT_ID \
-  --member "serviceAccount:service-${PROJECT_HOST_NUM}@gcp-sa-multiclusteringress.iam.gserviceaccount.com" \
-  --role "roles/container.admin" \
-  --project=${PROJECT_HOST}
+
 
 gcloud container fleet ingress enable \
   --config-membership=cluster-${PROJECT_HOST} \
@@ -128,6 +125,11 @@ gcloud container fleet ingress enable \
   --location=${REGION1}
 
 gcloud container fleet ingress describe --project=${PROJECT_HOST}
+
+gcloud projects add-iam-policy-binding ${PROJECT_HOST} \
+  --member "serviceAccount:service-${PROJECT_HOST_NUM}@gcp-sa-multiclusteringress.iam.gserviceaccount.com" \
+  --role "roles/container.admin" \
+  --project=${PROJECT_HOST}
 
 ```
 
