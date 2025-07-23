@@ -162,6 +162,8 @@ kubectl get service --context cluster-${PROJECT_MEMBER} --namespace store-member
 kubectl get endpoints --context cluster-${PROJECT_MEMBER} -n store-member
 kubectl get serviceimport --context cluster-${PROJECT_MEMBER} -n store-member
 
+kubectl describe endpoints store-member --context cluster-${PROJECT_MEMBER} -n store-member
+
 
 
 kubectl get serviceimport --context cluster-${PROJECT_MEMBER} -n store-member
@@ -170,15 +172,18 @@ store          ClusterSetIP   ["34.118.237.205"]   36m
 store-east-1   ClusterSetIP   ["34.118.234.121"]   36m
 store-west-2   ClusterSetIP   ["34.118.227.80"]    16m
 
+kubectl get endpoints store-member --context cluster-${PROJECT_MEMBER} -n store-member
 
 ```
 ## Check service
-kubectl describe deployment hello-app-deployment
-kubectl get pods -l app=store --namespace store --context cluster-${PROJECT_HOST}
-kubectl exec -i -t store-679dbc87d5-cz26h --namespace store --context cluster-${PROJECT_HOST} -- /bin/bash
+kubectl get pods -l app=store-host --namespace store-host --context cluster-${PROJECT_HOST}
+kubectl exec -i -t store-host-5cfc9bf756-gbt2k --namespace store-host --context cluster-${PROJECT_HOST} -- /bin/bash
 
-wget store-west-1
-wget store-east-1
+HOSTNAME.MEMBERSHIP_NAME.SERVICE_EXPORT_NAME.NAMESPACE.svc.clusterset.local
+
+
+wget store-member
+wget store-member-service
 
 store          23m
 store-east-1   23m
