@@ -72,7 +72,7 @@ metadata:
   namespace: store-host
 EOF
 
-kubectl apply -f store-host-service.yaml --context=cluster-${PROJECT_MEMBER}
+kubectl apply -f store-host-service.yaml --context=cluster-${PROJECT_HOST}
 ```
 ### Deploy app on cluster member
 ```
@@ -146,7 +146,7 @@ metadata:
   name: store-member-service
   namespace: store-member
 EOF
-kubectl apply -f store-member-service.yaml --context=cluster-${PROJECT_HOST}
+kubectl apply -f store-member-service.yaml --context=cluster-${PROJECT_MEMBER}
 ```
 ```
 kubectl get serviceexports --context cluster-${PROJECT_HOST} --namespace store
