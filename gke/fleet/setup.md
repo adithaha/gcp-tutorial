@@ -93,7 +93,7 @@ Register the clusters to a fleet:
 gcloud container fleet memberships register cluster-${PROJECT_HOST} \
   --gke-cluster ${REGION1}-c/cluster-${PROJECT_HOST} \
   --enable-workload-identity \
-  --project=${PROJECT_HOST}
+  --project=${PROJECT_HOST} 
 
 gcloud container fleet memberships register cluster-${PROJECT_MEMBER} \
   --gke-uri "https://container.googleapis.com/v1/projects/${PROJECT_MEMBER}/locations/${REGION1}-c/clusters/cluster-${PROJECT_MEMBER}" \
@@ -107,6 +107,8 @@ gcloud container fleet memberships list --project=${PROJECT_HOST}
 ## MCS
 ```
 gcloud container fleet multi-cluster-services enable --project ${PROJECT_HOST}
+gcloud container fleet multi-cluster-services describe --project=${PROJECT_HOST}
+
 ```
 ```
  gcloud projects add-iam-policy-binding ${PROJECT_HOST} \
@@ -118,8 +120,14 @@ gcloud projects add-iam-policy-binding ${PROJECT_HOST} \
     --member "principal://iam.googleapis.com/projects/${PROJECT_HOST_NUM}/locations/global/workloadIdentityPools/${PROJECT_HOST}.svc.id.goog/subject/ns/gke-mcs/sa/gke-mcs-importer" \
     --role "roles/compute.networkViewer"
 ```
+
+
+
+
+
+
+
 ```
-gcloud container fleet multi-cluster-services describe --project=${PROJECT_HOST}
 
 
 
