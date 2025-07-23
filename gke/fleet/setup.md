@@ -77,17 +77,6 @@ Enable the multi-cluster Gateway API on the cluster1 cluster
 ```
 gcloud container clusters update cluster-${PROJECT_HOST}  --gateway-api=standard --region="${REGION1}-c"
 ```
-Use Workload pool if not yet:
-```
-gcloud container clusters update cluster-${PROJECT_HOST} \
-    --location=${REGION1}-c \
-    --workload-pool=${PROJECT_HOST}.svc.id.goog
-
-gcloud container clusters update cluster-${PROJECT_MEMBER} \
-    --location=${REGION1}-c \
-    --workload-pool=${PROJECT_MEMBER}.svc.id.goog \
-    --project=${PROJECT_MEMBER}
-```
 Register the clusters to a fleet:
 ```
 gcloud container fleet memberships register cluster-${PROJECT_HOST} \
