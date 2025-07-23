@@ -193,27 +193,37 @@ store-east-1   23m
 ## Delete
 
 ```
-kubectl delete serviceexport store-west-2 --context cluster-${PROJECT_HOST} -n store
-kubectl delete service store-west-2 --context cluster-${PROJECT_HOST} -n store
-kubectl delete serviceexport store --context cluster-${PROJECT_HOST} -n store
-kubectl delete service store --context cluster-${PROJECT_HOST} -n store
-kubectl delete deployment store --context cluster-${PROJECT_HOST} -n store
-kubectl delete namespace store --context cluster-${PROJECT_HOST}
+kubectl delete serviceexport store-host-service --context cluster-${PROJECT_HOST} -n store-host
+kubectl delete service store-host-service --context cluster-${PROJECT_HOST} -n store-host
+kubectl delete serviceexport store-host --context cluster-${PROJECT_HOST} -n store-host
+kubectl delete service store-host --context cluster-${PROJECT_HOST} -n store-host
+kubectl delete deployment store-host --context cluster-${PROJECT_HOST} -n store-host
+kubectl delete namespace store-host --context cluster-${PROJECT_HOST}
 
-kubectl delete serviceexport store-east-1 --context cluster-${PROJECT_MEMBER} -n store
-kubectl delete service store-east-1 --context cluster-${PROJECT_MEMBER} -n store
-kubectl delete serviceexport store --context cluster-${PROJECT_MEMBER} -n store
-kubectl delete service store --context cluster-${PROJECT_MEMBER} -n store
-kubectl delete deployment store --context cluster-${PROJECT_MEMBER} -n store
-kubectl delete namespace store --context cluster-${PROJECT_MEMBER}
+kubectl delete serviceexport store-member-service --context cluster-${PROJECT_MEMBER} -n store-member
+kubectl delete service store-member-service --context cluster-${PROJECT_MEMBER} -n store-member
+kubectl delete serviceexport store-member --context cluster-${PROJECT_MEMBER} -n store-member
+kubectl delete service store-member --context cluster-${PROJECT_MEMBER} -n store-member
+kubectl delete deployment store-member --context cluster-${PROJECT_MEMBER} -n store-member
+kubectl delete namespace store-member --context cluster-${PROJECT_MEMBER}
 ```
 
 
 ```
+
 gcloud container fleet memberships unregister cluster-${PROJECT_MEMBER} \
-  --gke-cluster ${REGION1}-c/cluster-${PROJECT_MEMBER} \
+  --gke-uri "https://container.googleapis.com/v1/projects/${PROJECT_MEMBER}/locations/${REGION1}-c/clusters/cluster-${PROJECT_MEMBER}" \
+  --project=${PROJECT_HOST}
+gcloud container fleet memberships unregister cluster-${PROJECT_HOST} \
+  --gke-cluster ${REGION1}-c/cluster-${PROJECT_HOST} \
+  --project=${PROJECT_HOST}
+
+gcloud container clusters delete cluster-${PROJECT_MEMBER} \
+  --zone "${REGION1}-c" \
   --project=${PROJECT_MEMBER}
-```
+gcloud container clusters delete cluster-${PROJECT_HOST} \
+  --zone "${REGION1}-c" \
+  --project=${PROJECT_HOST}
 ```
 gcloud container fleet delete --project ${PROJECT_MEMBER}
 ```
