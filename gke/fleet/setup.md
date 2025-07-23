@@ -131,8 +131,132 @@ gcloud projects add-iam-policy-binding ${PROJECT_HOST} \
   --role "roles/container.admin" \
   --project=${PROJECT_HOST}
 
+
+kubectl get gatewayclasses --context=cluster-${PROJECT_HOST}
 ```
 
+## Deploy App
+
+```
+cat <<EOF > store-deployment.yaml
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: store
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store
+  namespace: store
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: store
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: store
+        version: v1
+    spec:
+      containers:
+      - name: whereami
+        image: gcr.io/google-samples/whereami:v1.2.1
+        ports:
+          - containerPort: 8080
+EOF
+kubectl apply -f store-deployment.yaml --context=cluster-${PROJECT_MEMBER}
+kubectl apply -f store-deployment.yaml --context=cluster-${PROJECT_HOST}
+
+```
+```
+cat <<EOF > store-east-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: store
+  namespace: store
+spec:
+  selector:
+    app: store
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+kind: ServiceExport
+apiVersion: net.gke.io/v1
+metadata:
+  name: store
+  namespace: store
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: store-east-1
+  namespace: store
+spec:
+  selector:
+    app: store
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+kind: ServiceExport
+apiVersion: net.gke.io/v1
+metadata:
+  name: store-east-1
+  namespace: store
+EOF
+
+kubectl apply -f store-east-service.yaml --context=cluster-${PROJECT_MEMBER}
+```
+```
+cat <<EOF > store-west-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: store
+  namespace: store
+spec:
+  selector:
+    app: store
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+kind: ServiceExport
+apiVersion: net.gke.io/v1
+metadata:
+  name: store
+  namespace: store
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: store-west-2
+  namespace: store
+spec:
+  selector:
+    app: store
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+kind: ServiceExport
+apiVersion: net.gke.io/v1
+metadata:
+  name: store-west-2
+  namespace: store
+EOF
+kubectl apply -f store-west-service.yaml --context=cluster-${PROJECT_HOST}
+```
+```
+kubectl get serviceexports --context cluster-${PROJECT_HOST} --namespace store
+kubectl get serviceexports --context cluster-${PROJECT_MEMBER} --namespace store
+
+```
 ## Delete
 
 ```
