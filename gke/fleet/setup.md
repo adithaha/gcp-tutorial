@@ -15,18 +15,20 @@ gcloud container clusters create cluster-${PROJECT_HOST} \
  --zone "${REGION1}-c" \
  --machine-type "e2-medium" \
  --release-channel "stable" \
+ --workload-pool=${PROJECT_HOST}.svc.id.goog \
  --network ${VPC1} \
  --subnetwork ${VPC1}-${REGION1} \
  --num-nodes 1 \
  --enable-shielded-nodes \
  --project=${PROJECT_HOST} \
- --scopes=https://www.googleapis.com/auth/devstorage.read_only
+ --scopes=https://www.googleapis.com/auth/devstorage.read_only \
  --async
 
 gcloud container clusters create cluster-${PROJECT_MEMBER} \
  --zone "${REGION1}-c" \
  --machine-type "e2-medium" \
  --release-channel "stable" \
+ --workload-pool=${PROJECT_MEMBER}.svc.id.goog \
  --network ${VPC1} \
  --subnetwork ${VPC1}-${REGION1} \
  --num-nodes 1 \
@@ -46,12 +48,12 @@ gcloud container clusters get-credentials cluster-${PROJECT_HOST} \
  --zone "${REGION1}-c" --project=${PROJECT-HOST}
 
 gcloud container clusters get-credentials cluster-${PROJECT_MEMBER} \
- --zone "${REGION1}-c" --project=${PROJECT-MEMBER}
+ --zone "${REGION1}-c" --project=${PROJECT_MEMBER}
 ```
 Rename the cluster contexts so they are easier to reference later:
 ```
-kubectl config rename-context gke_PROJECT_ID_ZONE_${PROJECT_HOST} ${PROJECT_HOST}
-kubectl config rename-context gke_PROJECT_ID_ZONE_${PROJECT_MEMBER} ${PROJECT_MEMBER}
+kubectl config rename-context gke_${PROJECT_HOST}_${REGION1}-c_cluster-${PROJECT_HOST} cluster-${PROJECT_HOST}
+kubectl config rename-context gke_${PROJECT_MEMBER}_${REGION1}-c_cluster-${PROJECT_MEMBER} cluster-${PROJECT_MEMBER}
 ```
 
 
@@ -62,6 +64,15 @@ gcloud container clusters update cluster-${PROJECT_HOST}  --gateway-api=standard
 ```
 Register the clusters to a fleet:
 ```
+gcloud container clusters update cluster-${PROJECT_HOST} \
+    --location=${REGION1}-c \
+    --workload-pool=${PROJECT_HOST}.svc.id.goog
+
+gcloud container clusters update cluster-${PROJECT_MEMBER} \
+    --location=${REGION1}-c \
+    --workload-pool=${PROJECT_MEMBER}.svc.id.goog \
+    --project=${PROJECT_MEMBER}
+
 gcloud container fleet memberships register cluster-${PROJECT_HOST} \
   --gke-cluster ${REGION1}-c/cluster-${PROJECT_HOST} \
   --enable-workload-identity \
