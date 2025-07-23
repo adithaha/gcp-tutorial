@@ -60,7 +60,7 @@ gcloud container clusters list --project=${PROJECT_MEMBER} --uri
 Fetch the credentials for cluster
 ```
 gcloud container clusters get-credentials cluster-${PROJECT_HOST} \
- --zone "${REGION1}-c" --project=${PROJECT-HOST}
+ --zone "${REGION1}-c" --project=${PROJECT_HOST}
 
 gcloud container clusters get-credentials cluster-${PROJECT_MEMBER} \
  --zone "${REGION1}-c" --project=${PROJECT_MEMBER}
@@ -99,6 +99,36 @@ gcloud container fleet memberships register cluster-${PROJECT_MEMBER} \
   --gke-uri "https://container.googleapis.com/v1/projects/${PROJECT_MEMBER}/locations/${REGION1}-c/clusters/cluster-${PROJECT_MEMBER}" \
   --enable-workload-identity \
   --project=${PROJECT_HOST}
+```
+Verify Fleet
+```
+gcloud container fleet memberships list --project=${PROJECT_HOST}
+```
+## MCS
+```
+gcloud container fleet multi-cluster-services enable --project ${PROJECT_HOST}
+```
+```
+ gcloud projects add-iam-policy-binding ${PROJECT_HOST} \
+ --member "serviceAccount:${PROJECT_HOST}.svc.id.goog[gke-mcs/gke-mcs-importer]" \
+ --role "roles/compute.networkViewer" \
+ --project=${PROJECT_HOST}
+```
+```
+gcloud container fleet multi-cluster-services describe --project=${PROJECT_HOST}
+
+gcloud projects add-iam-policy-binding PROJECT_ID \
+  --member "serviceAccount:service-${PROJECT_HOST_NUM}@gcp-sa-multiclusteringress.iam.gserviceaccount.com" \
+  --role "roles/container.admin" \
+  --project=${PROJECT_HOST}
+
+gcloud container fleet ingress enable \
+  --config-membership=cluster-${PROJECT_HOST} \
+  --project=${PROJECT_HOST} \
+  --location=${REGION1}
+
+gcloud container fleet ingress describe --project=${PROJECT_HOST}
+
 ```
 
 ## Delete
