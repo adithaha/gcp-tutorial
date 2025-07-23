@@ -1,8 +1,5 @@
-
-
 ## Deploy App
-Deploy app on cluster host
-
+### Deploy app on cluster host
 ```
 cat <<EOF > store-host-deployment.yaml
 kind: Namespace
@@ -35,6 +32,7 @@ spec:
 EOF
 kubectl apply -f store-host-deployment.yaml --context=cluster-${PROJECT_HOST}
 ```
+### Deploy service on cluster host
 ```
 cat <<EOF > store-host-service.yaml
 apiVersion: v1
@@ -76,8 +74,7 @@ EOF
 
 kubectl apply -f store-host-service.yaml --context=cluster-${PROJECT_MEMBER}
 ```
-
-Deploy app on cluster member
+### Deploy app on cluster member
 ```
 cat <<EOF > store-member-deployment.yaml
 kind: Namespace
@@ -110,16 +107,17 @@ spec:
 EOF
 kubectl apply -f store-member-deployment.yaml --context=cluster-${PROJECT_MEMBER}
 ```
+### Deploy service on cluster member
 ```
-cat <<EOF > store-west-service.yaml
+cat <<EOF > store-member-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: store
-  namespace: store
+  name: store-member
+  namespace: store-member
 spec:
   selector:
-    app: store
+    app: store-member
   ports:
   - port: 8080
     targetPort: 8080
@@ -127,17 +125,17 @@ spec:
 kind: ServiceExport
 apiVersion: net.gke.io/v1
 metadata:
-  name: store
-  namespace: store
+  name: store-member
+  namespace: store-member
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: store-west-2
-  namespace: store
+  name: store-member-service
+  namespace: store-member
 spec:
   selector:
-    app: store
+    app: store-member
   ports:
   - port: 8080
     targetPort: 8080
@@ -145,10 +143,10 @@ spec:
 kind: ServiceExport
 apiVersion: net.gke.io/v1
 metadata:
-  name: store-west-2
-  namespace: store
+  name: store-member-service
+  namespace: store-member
 EOF
-kubectl apply -f store-west-service.yaml --context=cluster-${PROJECT_HOST}
+kubectl apply -f store-member-service.yaml --context=cluster-${PROJECT_HOST}
 ```
 ```
 kubectl get serviceexports --context cluster-${PROJECT_HOST} --namespace store
