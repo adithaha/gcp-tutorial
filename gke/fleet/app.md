@@ -169,7 +169,7 @@ kubectl get endpoints store-member --context cluster-${PROJECT_MEMBER} -n store-
 ## Check service
 ```
 kubectl get pods -l app=store-host --namespace store-host --context cluster-${PROJECT_HOST}
-kubectl exec -i -t store-host-5cfc9bf756-gbt2k --namespace store-host --context cluster-${PROJECT_HOST} -- /bin/bash
+kubectl exec -i -t <POD-NAME> --namespace store-host --context cluster-${PROJECT_HOST} -- /bin/bash
 ```
 ```
 wget store-member
