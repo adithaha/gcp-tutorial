@@ -27,8 +27,15 @@ kubectl get ingress
 ```
 
 ```
+
+gcloud container clusters update sample-cluster \
+    --cluster-dns=clouddns \
+    --cluster-dns-scope=cluster \
+    --location=${REGION1}-c
+
 gcloud container clusters update sample-cluster \
     --additive-vpc-scope-dns-domain=sample-cluster-domain \
-    --location=COMPUTE_LOCATION```
+    --location=${REGION1}-c
+```
 ### Go back
 [Content](https://github.com/adithaha/gcp-tutorial/blob/main/gke/readme.md)
