@@ -1,21 +1,8 @@
 # Internal Load Balancer
-Setup internal load balancer, and test from client VM
+Test internal ingress from client VM
 
 ## Acquire GKE access
 [credential](https://github.com/adithaha/gcp-tutorial/blob/main/gke/credential.md)
-
-
-# Create Internal LB
-```
-kubectl config set-context --current --namespace=sample-app
-kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ilb/service.yaml
-kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ilb/ingress-internal.yaml
-
-```
-Check load balancer IP in EXTERNAL-IP column
-```
-kubectl get svc hello-app-internal
-```
 
 # Create Client VM
 ```
