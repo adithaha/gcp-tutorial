@@ -11,12 +11,9 @@ kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gk
 ## External Ingress
 Create service nodeport
 ```
-kubectl create -f kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ingress/deployment.yaml
-/ingress/service-nodeport.yaml
-kubectl create -f kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ingress/deployment.yaml
-/ingress/service-nodeport1.yaml
-kubectl create -f kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ingress/deployment.yaml
-/ingress/service-nodeport2.yaml
+kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ingress/service-nodeport.yaml
+kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ingress/service-nodeport1.yaml
+kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ingress/service-nodeport2.yaml
 kubectl get svc
 ```
 Create ingress
