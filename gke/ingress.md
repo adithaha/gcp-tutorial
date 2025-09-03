@@ -26,5 +26,9 @@ Get LB address with command below, may need some time to get it
 kubectl get ingress
 ```
 
+```
+gcloud container clusters update sample-cluster \
+    --additive-vpc-scope-dns-domain=sample-cluster-domain \
+    --location=COMPUTE_LOCATION```
 ### Go back
 [Content](https://github.com/adithaha/gcp-tutorial/blob/main/gke/readme.md)
