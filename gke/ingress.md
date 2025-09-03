@@ -6,14 +6,17 @@
 
 ## Deploy second app
 ```
-kubectl apply -f ingress/deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ingress/deployment.yaml
 ```
 ## External Ingress
 Create service nodeport
 ```
-kubectl create -f ingress/service-nodeport.yaml
-kubectl create -f ingress/service-nodeport1.yaml
-kubectl create -f ingress/service-nodeport2.yaml
+kubectl create -f kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ingress/deployment.yaml
+/ingress/service-nodeport.yaml
+kubectl create -f kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ingress/deployment.yaml
+/ingress/service-nodeport1.yaml
+kubectl create -f kubectl apply -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ingress/deployment.yaml
+/ingress/service-nodeport2.yaml
 kubectl get svc
 ```
 Create ingress
