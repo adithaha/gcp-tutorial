@@ -18,7 +18,7 @@ kubectl get svc
 ```
 Create ingress
 ```
-kubectl create -f ingress/ingress.yaml
+kubectl create -f https://raw.githubusercontent.com/adithaha/gcp-tutorial/main/gke/ingress/ingress.yaml
 ```
 ## Access App using Ingress
 Get LB address with command below, may need some time to get it
