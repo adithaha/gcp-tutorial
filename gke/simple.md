@@ -10,8 +10,9 @@ gcloud container clusters get-credentials sample-cluster --zone "${REGION1}-c" -
 ```
 ## Set nodes number to 1
 ```
-cloud container clusters resize sample-cluster --node-pool default-pool \
-    --num-nodes 1
+gcloud container clusters resize sample-cluster --node-pool default-pool \
+    --num-nodes 1 \
+    --zone ${REGION1}-c
 ```
 
 ## deploy Hello App
